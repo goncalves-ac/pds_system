@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo,useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { authRoutes, notAuthRoutes } from './routes'
@@ -12,9 +12,6 @@ import {
 } from 'firebase/firestore'
 
 // React related imports
-import {
-    useEffect,
-} from 'react'
 
 const App: React.FC = () => {
     const { token } = useAuth()

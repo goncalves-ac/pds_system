@@ -33,6 +33,8 @@ export const Container = styled.div<ContainerProps>`
     ${props => stringOrNumber(props.top, 'top')}
     ${props => stringOrNumber(props.right, 'right')}
     ${props => stringOrNumber(props.left, 'left')}
+    padding: ${props => stringOrNumber(props.padding) ?? '0px'};
+    margin: ${props => stringOrNumber(props.margin) ?? '0px'};
     ${props => props.zIndex ? `z-index: ${props.zIndex};` : ''}
     transition: all ease-in .1s;
 `

@@ -37,6 +37,9 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
     left?: string | number
     right?: string | number
 
+    padding?: string | number
+    margin?: string | number
+
     zIndex?: number;
 
     loading?: LoaderProps & { isLoading?: boolean }

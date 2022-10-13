@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Loader from '../loader'
+import Loader from '../loader/loader'
 import ButtonStyle from './style'
 import { ButtonProps } from '../../dto'
 

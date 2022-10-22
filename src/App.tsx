@@ -1,32 +1,19 @@
-import React, { useMemo,useEffect } from 'react'
+import React, { useMemo, useEffect} from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { authRoutes, notAuthRoutes } from './routes'
 import { useAuth } from './hooks'
 
-// Database related imports
-import {db} from './firebase-config'
-import {
-    collection,
-    getDocs,
-} from 'firebase/firestore'
-
-// React related imports
+import * as firestore from './firestore-services/getters'
 
 const App: React.FC = () => {
     const { token } = useAuth()
 
-    // Get a collection/table from the database
-    const usersCollectionReference = collection(db, 'users')
-
     useEffect(() => {
-        const getUsers = async () => {
-            // Get all documents/rows from the collection passed as reference
-            const data = await getDocs(usersCollectionReference)
-            console.log(data)
-        }
-
-        getUsers()
+        console.log('Dados de todos os clientes')
+        console.log(firestore.getCollectionData('clientes'))
+        console.log('Dados de um cliente específico, o Josué')
+        console.log(firestore.getDocumentData('clientes','Josué'))
     }, [])
 
     const routes = useMemo(() => {

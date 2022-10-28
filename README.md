@@ -1,3 +1,9 @@
+# **PDS - Prática e Desenvolvimento de Software**
+
+<p align="center" width="100%">
+    <img width="29%" src="./src/img/logo.png">
+</p>
+
 ## **Membros e papéis**:
 
 - Abner Davi Bicalho de Lima - desenvolvedor full-stack;
@@ -161,8 +167,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-# **PDS - Prática e Desenvolvimento de Software**
-
-<p align="center" width="100%">
-    <img width="29%" src="./src/img/logo.png">
-</p>

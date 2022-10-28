@@ -1,10 +1,9 @@
 import React from 'react'
 import { Container } from '../../layout'
-import Outubro from '../../assets/outubro-rosa.png'
-import { AppBar, Menu } from '../../components'
+import { AppBar, Menu, UsuarioList } from '../../components'
+import Box from '@mui/material/Box'
 
 const Home: React.FC = () => {
-
 
     return (
         <Container
@@ -13,16 +12,13 @@ const Home: React.FC = () => {
             justify='center'
             flexDirection='row'
         >
-            <AppBar/>
-            <Menu/>
+            <AppBar />
+            <Menu />
 
-            <div>
-                <Container
-                    backgroundImg={Outubro}
-                >
-                </Container>
-            </div>
-           
+            <Box sx={{ display: 'flex', padding: '15rem 5rem 0 10rem', width: '100%', height: '100%' }}>
+               HOME
+            </Box>
+
         </Container>
     )
 }

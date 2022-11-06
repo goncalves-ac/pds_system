@@ -40,10 +40,10 @@ export class Psicologos extends User {
     }
 
     constructor(
-        id: string, name: string, cpf: string, phone: string, address: Map<string, string>,
+        id: string, name: string, cpf: string, phone: string, email: string, address: Map<string, string>,
         crp: string, workDays: string, especialidade: string,
     ) {
-        super(id, name, cpf, phone, address)
+        super(id, name, cpf, phone, email, address)
         this.crp = crp
         this.workDays = workDays
         this.especialidade = especialidade

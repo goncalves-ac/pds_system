@@ -1,11 +1,12 @@
 export class User {
     private id: string
-    private name: string
+    private nome: string
     private cpf: string
-    private phone: string
+    private telefone: string
+    private email: string
 
     /**
-     * Information that will be stored in the address map:
+     * Information that will be stored in the endereco map:
      * - cep
      * - estado
      * - cidade
@@ -14,7 +15,7 @@ export class User {
      * - numero
      * - complemento
      */
-    private address: Map<string, string>
+    private endereco: Map<string, string>
 
     /**
      * Getters
@@ -23,16 +24,19 @@ export class User {
         return this.id
     }
     public getName(): string {
-        return this.name
+        return this.nome
     }
     public getCPF(): string {
         return this.cpf
     }
     public getPhone(): string {
-        return this.phone
+        return this.telefone
+    }
+    public getEmail(): string {
+        return this.email
     }
     public getAddress(): Map<string, string> {
-        return this.address
+        return this.endereco
     }
 
     /**
@@ -41,26 +45,30 @@ export class User {
     protected setId(id: string): void {
         this.id = id
     }
-    setName(name: string): void {
-        this.name = name
+    setName(nome: string): void {
+        this.nome = nome
     }
     setCPF(cpf: string): void {
         this.cpf = cpf
     }
-    setPhone(phone: string): void {
-        this.phone = phone
+    setPhone(telefone: string): void {
+        this.telefone = telefone
     }
-    setAddress(address: Map<string, string>): void {
-        this.address = address
+    setEmail(email: string): void {
+        this.email = email
+    }
+    setAddress(endereco: Map<string, string>): void {
+        this.endereco = endereco
     }
 
     constructor(
-        id: string, name: string, cpf: string, phone: string, address: Map<string, string>
+        id: string, nome: string, cpf: string, telefone: string, email: string, endereco: Map<string, string>
     ) {
         this.id = id
-        this.name = name
+        this.nome = nome
         this.cpf = cpf
-        this.phone = phone
-        this.address = address
+        this.telefone = telefone
+        this.email = email
+        this.endereco = endereco
     }
 }

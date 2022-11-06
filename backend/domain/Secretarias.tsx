@@ -25,10 +25,10 @@ export class Secretarias extends User {
     }
 
     constructor(
-        id: string, name: string, cpf: string, phone: string, address: Map<string, string>,
+        id: string, name: string, cpf: string, phone: string, email:string, address: Map<string, string>,
         workDays: string, workHours: string
     ) {
-        super(id, name, cpf, phone, address)
+        super(id, name, cpf, phone, email, address)
         this.workDays = workDays
         this.workHours = workHours
     }

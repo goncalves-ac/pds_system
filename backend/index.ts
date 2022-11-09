@@ -5,17 +5,13 @@ dotenv.config();
 
 const cors = require('cors')
 const bodyParser = require('body-parser');
-const clienteRoutes = require('./routes/clienteRoutes');
+const clienteRoutes = require('./adaptadores/rotas/clienteRoutes');
 
 const app: Express = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 const port = process.env.PORT;
-
-// app.get('/', (req: Request, res: Response) => {
-//   res.send('Express + TypeScript Server');
-// });
 
 app.use('/api', clienteRoutes.routes);
 

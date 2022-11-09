@@ -1,3 +1,6 @@
+/**
+ * Superclasse base para entidades.
+ */
 export class User {
   private id: string
   private nome: string

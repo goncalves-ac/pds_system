@@ -1,32 +1,37 @@
-import { Request, Response, NextFunction } from 'express'
 import { db } from '../db'
 import { Cliente } from '../dominio/entidades/Cliente'
-import { RepositorioCliente } from '../dominio/repositorios/RepositorioCliente'
+import { RepositorioCliente } from '../dominio/portas/RepositorioCliente'
 
 const firestore = db.firestore()
 
+/**
+ * Adaptador para o Banco de Dados
+ */
 export class RepositorioClienteImpl implements RepositorioCliente {
+  private res: any
+
+  constructor(res: any = null) {
+    this.res = res
+  }
+
   /**
    * Adiciona um cliente à base de dados.
    *
-   * O parâmetro request deve necessariamente conter em seu body
-   * um Json que respeita o formato estipulado pela classe Cliente.
+   * O parâmetro data deve necessariamente ser um Json
+   * que respeita o formato estipulado pela classe Cliente.
    * Caso o Json fuja dos padrões, será retornada uma mensagem
    * de erro contextualizada.
    *
-   * @param req
-   * @param res
-   * @param next
+   * @param data
    */
-  public addCliente = async (req: Request, res: Response, next: NextFunction) => {
+  public addCliente = async (data: any) => {
     try {
-      const data = req.body
       await firestore.collection('clientes').doc().set(data)
-      res.send('Cliente adicionado com sucesso.')
+      this.res.send('Cliente adicionado com sucesso.')
 
     } catch (error) {
       if (error instanceof Error) {
-        res.status(400).send(error.message)
+        this.res.status(400).send(error.message)
       } else {
         console.log('Erro inesperado: addCliente()', error)
       }
@@ -35,19 +40,15 @@ export class RepositorioClienteImpl implements RepositorioCliente {
 
   /**
    * Retorna todos os clientes presentes na database.
-   *
-   * @param req
-   * @param res
-   * @param next
    */
-  public getAllClientes = async (req: Request, res: Response, next: NextFunction) => {
+  public getAllClientes = async () => {
     try {
       const collectionClientes = await firestore.collection('clientes')
       const data = await collectionClientes.get()
       const clientes: Cliente[] = []
 
       if (data.empty) {
-        res.status(404).send('Não há clientes cadastrados na database.')
+        this.res.status(404).send('Não há clientes cadastrados na database.')
       } else {
         data.forEach(doc => {
           const cliente = new Cliente(
@@ -61,12 +62,13 @@ export class RepositorioClienteImpl implements RepositorioCliente {
           clientes.push(cliente)
         })
 
-        res.send(clientes)
+        this.res.send(clientes)
+        return clientes
       }
 
     } catch (error) {
       if (error instanceof Error) {
-        res.status(400).send(error.message)
+        this.res.status(400).send(error.message)
       } else {
         console.log('Erro inesperado: getAllClientes()', error)
       }
@@ -81,24 +83,21 @@ export class RepositorioClienteImpl implements RepositorioCliente {
    *
    * Ex: .../api/get-cliente/id_do_cliente
    *
-   * @param req
-   * @param res
-   * @param next
+   * @param id
    */
-  public getCliente = async (req: Request, res: Response, next: NextFunction) => {
+  public getCliente = async (id: any) => {
     try {
-      const idCliente = req.params.id
-      const cliente = await firestore.collection('clientes').doc(idCliente)
+      const cliente = await firestore.collection('clientes').doc(id)
       const data = await cliente.get()
 
       if (!data.exists) {
-        res.status(404).send('Não foi encontrado um cliente com esse ID.')
+        this.res.status(404).send('Não foi encontrado um cliente com esse ID.')
       } else {
-        res.send(data.data())
+        this.res.send(data.data())
       }
     } catch (error) {
       if (error instanceof Error) {
-        res.status(400).send(error.message)
+        this.res.status(400).send(error.message)
       } else {
         console.log('Erro inesperado: getCliente()', error)
       }
@@ -108,8 +107,8 @@ export class RepositorioClienteImpl implements RepositorioCliente {
   /**
    * Atualiza os dados de um cliente presente na base de dados.
    *
-   * O parâmetro request deve necessariamente conter em seu body
-   * um Json que respeita o formato estipulado pela classe Cliente.
+   * O parâmetro data deve necessariamente ser um Json
+   * que respeita o formato estipulado pela classe Cliente.
    * Caso o Json fuja dos padrões, será retornada uma mensagem
    * de erro contextualizada.
    *
@@ -118,20 +117,17 @@ export class RepositorioClienteImpl implements RepositorioCliente {
    *
    * Ex: .../api/update-cliente/id_do_cliente
    *
-   * @param req
-   * @param res
-   * @param next
+   * @param id
+   * @param data
    */
-  public updateCliente = async (req: Request, res: Response, next: NextFunction) => {
+  public updateCliente = async (id: any, data: any) => {
     try {
-      const id = req.params.id;
-      const data = req.body;
       const cliente = await firestore.collection('clientes').doc(id);
       await cliente.update(data);
-      res.send('Dados do cliente atualizados com sucesso.');
+      this.res.send('Dados do cliente atualizados com sucesso.');
     } catch (error) {
       if (error instanceof Error) {
-        res.status(400).send(error.message)
+        this.res.status(400).send(error.message)
       } else {
         console.log('Erro inesperado: updateCliente()', error)
       }
@@ -146,18 +142,15 @@ export class RepositorioClienteImpl implements RepositorioCliente {
    *
    * Ex: .../api/delete-cliente/id_do_cliente
    *
-   * @param req
-   * @param res
-   * @param next
+   * @param id
    */
-  public deleteCliente = async (req: Request, res: Response, next: NextFunction) => {
+  public deleteCliente = async (id: any) => {
     try {
-      const id = req.params.id;
       await firestore.collection('clientes').doc(id).delete();
-      res.send('Cliente deletado com sucesso.');
+      this.res.send('Cliente deletado com sucesso.');
     } catch (error) {
       if (error instanceof Error) {
-        res.status(400).send(error.message)
+        this.res.status(400).send(error.message)
       } else {
         console.log('Erro inesperado: deleteCliente()', error)
       }

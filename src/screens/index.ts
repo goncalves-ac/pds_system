@@ -5,4 +5,5 @@ export { default as Cliente } from './cliente/cliente'
 export { default as Secretaria } from './secretaria/secretaria'
 export { default as Psicologo } from './psicologo/psicologo'
 export { default as Agenda } from './agenda/agenda'
+export { default as Cadastro } from './cadastro/cadastro'
 

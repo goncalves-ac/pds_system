@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { IRoute } from './dto'
-import { Agenda, Home, Login, ResetPassword, Cliente, Secretaria, Psicologo } from './screens'
+import { Agenda, Home, Login, ResetPassword, Cliente, Secretaria, Psicologo, Cadastro } from './screens'
 
 export const authRoutes: IRoute[] = []
 
@@ -20,7 +20,7 @@ export const notAuthRoutes: IRoute[] = [
     },
     {
         path: 'cadastro',
-        element: <Home />
+        element: <Cadastro />
     },
     {
         path: 'cliente',

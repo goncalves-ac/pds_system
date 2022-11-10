@@ -1,5 +1,4 @@
-import { PesquisaCliente } from "../dominio/portas/PesquisaCliente";
-import { RepositorioImpl } from "./RepositorioImpl";
+import { CRUD } from "../dominio/portas/CRUD";
 
 /**
  * Adaptador Web
@@ -10,14 +9,14 @@ export class ClinicaSocialWeb {
 
   /**
    * Portas de entrada/serviços disponibilizados pelo sistema
-   * devem ser repassados como parâmetros do construtor.
+   * devem ser repassados como parâmetros do construtor do adaptador Web.
    */
-  private pesquisaCliente: PesquisaCliente
+  private crud: CRUD
 
-  constructor(pesquisaCliente: PesquisaCliente) {
+  constructor(crudService: CRUD) {
     this.express = require('express')
     this.router = this.express.Router()
-    this.pesquisaCliente = pesquisaCliente
+    this.crud = crudService
   }
 
   public getRouter() {
@@ -29,34 +28,44 @@ export class ClinicaSocialWeb {
 
   public start() {
     this.router.post('/add/:entity_type', (req: any, res:any) => {
-      const repo = new RepositorioImpl(res)
       const data = req.body
       const entity_type = req.params.entity_type;
-      repo.addEntity(data, entity_type)
+      const promessa = this.crud.adicionarEntidade(data, entity_type)
+      promessa.then((resposta:any) => {
+        res.send(resposta)
+      })
     })
     this.router.get('/get-all/:entity_type', (req: any, res:any) => {
-      const repo = new RepositorioImpl(res)
       const entity_type = req.params.entity_type;
-      repo.getAllEntities(entity_type)
+      const promessa = this.crud.retornarTodasEntidades(entity_type)
+      promessa.then((entidadeusuario:any) => {
+        res.send(entidadeusuario)
+      })
     })
     this.router.get('/get-user/:entity_type/:cpf', (req: any, res:any) => {
-      const repo = new RepositorioImpl(res)
       const cpf = req.params.cpf
       const entity_type = req.params.entity_type;
-      repo.getUserEntity(cpf, entity_type)
+      const promessa = this.crud.retornarEntidadeUsuario(cpf, entity_type)
+      promessa.then((entidades:any) => {
+        res.send(entidades)
+      })
     })
     this.router.put('/update/:entity_type/:id', (req: any, res:any) => {
-      const repo = new RepositorioImpl(res)
       const id = req.params.id;
       const data = req.body;
       const entity_type = req.params.entity_type;
-      repo.updateEntity(id, data, entity_type)
+      const promessa = this.crud.atualizarEntidade(id, data, entity_type)
+      promessa.then((resposta:any) => {
+        res.send(resposta)
+      })
     })
     this.router.delete('/delete/:entity_type/:id', (req: any, res:any) => {
-      const repo = new RepositorioImpl(res)
       const id = req.params.id;
       const entity_type = req.params.entity_type;
-      repo.deleteEntity(id, entity_type)
+      const promessa = this.crud.deletarEntidade(id, entity_type)
+      promessa.then((resposta:any) => {
+        res.send(resposta)
+      })
     })
   }
 }

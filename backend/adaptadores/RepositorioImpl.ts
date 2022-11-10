@@ -11,34 +11,26 @@ const firestore = db.firestore()
  * Adaptador para o Banco de Dados
  */
 export class RepositorioImpl implements Repositorio {
-  private res: any
-
-  constructor(res: any = null) {
-    this.res = res
-  }
-
   /**
    * Adiciona um cliente à base de dados.
    *
-   * O parâmetro data deve necessariamente ser um Json
-   * que respeita o formato estipulado pela classe Cliente.
-   * Caso o Json fuja dos padrões, será retornada uma mensagem
-   * de erro contextualizada.
-   *
-   * @param data
+   * @param data Dados em formato json
+   * @param entity_type String que representa o tipo de entidade a ser adicionada.
    */
   public addEntity = async (data: any, entity_type: string) => {
     try {
       await firestore.collection(entity_type).doc().set(data)
-      this.res.send('Entidade do tipo:"' + entity_type + '" adicionada com sucesso.')
-
+      return 'Entidade do tipo:"' + entity_type + '" adicionada com sucesso.'
     } catch (error) {
-      this.handleError(error, 'Erro inesperado: addCliente()')
+      console.log('Erro inesperado: addEntity()')
+      return 'Erro inesperado: addEntity()'
     }
   }
 
   /**
    * Retorna todos os clientes presentes na database.
+   *
+   * @param entity_type String que representa o tipo de entidade a ser recuperada.
    */
   public getAllEntities = async (entity_type: string) => {
     try {
@@ -46,87 +38,75 @@ export class RepositorioImpl implements Repositorio {
       const data = await collection.get()
       const entities: any[] = []
 
-      if (data.empty) {
-        this.responseStatus('Não há entidades do tipo:"' + entity_type + '" cadastradas na database.')
-      } else {
-        if (entity_type === 'clientes') {
-          data.forEach(doc => {
-            const cliente = new Cliente(
-              doc.id,
-              doc.data().nome,
-              doc.data().cpf,
-              doc.data().telefone,
-              doc.data().email,
-              doc.data().endereco
-            )
-            entities.push(cliente)
-          })
-        } else if (entity_type === 'secretarias') {
-          data.forEach(doc => {
-            const secretaria = new Secretaria(
-              doc.id,
-              doc.data().nome,
-              doc.data().cpf,
-              doc.data().telefone,
-              doc.data().email,
-              doc.data().endereco,
-              doc.data().worDays,
-              doc.data().workHours
-            )
-            entities.push(secretaria)
-          })
-        } else if (entity_type === 'psicologos') {
-          data.forEach(doc => {
-            const psicologo = new Psicologo(
-              doc.id,
-              doc.data().nome,
-              doc.data().cpf,
-              doc.data().telefone,
-              doc.data().email,
-              doc.data().endereco,
-              doc.data().crp,
-              doc.data().workDays,
-              doc.data().especialidade
-            )
-            entities.push(psicologo)
-          })
-        } else if (entity_type === 'prontuarios') {
-          data.forEach(doc => {
-            const prontuario = new Prontuario(
-              doc.data().date,
-              doc.data().time,
-              doc.data().parecer,
-            )
-            entities.push(prontuario)
-          })
-        }
-
-        this.sendResponseObject(entities)
-        return entities
+      if (entity_type === 'clientes') {
+        data.forEach(doc => {
+          const cliente = new Cliente(
+            doc.id,
+            doc.data().nome,
+            doc.data().cpf,
+            doc.data().telefone,
+            doc.data().email,
+            doc.data().endereco
+          )
+          entities.push(cliente)
+        })
+      } else if (entity_type === 'secretarias') {
+        data.forEach(doc => {
+          const secretaria = new Secretaria(
+            doc.id,
+            doc.data().nome,
+            doc.data().cpf,
+            doc.data().telefone,
+            doc.data().email,
+            doc.data().endereco,
+            doc.data().worDays,
+            doc.data().workHours
+          )
+          entities.push(secretaria)
+        })
+      } else if (entity_type === 'psicologos') {
+        data.forEach(doc => {
+          const psicologo = new Psicologo(
+            doc.id,
+            doc.data().nome,
+            doc.data().cpf,
+            doc.data().telefone,
+            doc.data().email,
+            doc.data().endereco,
+            doc.data().crp,
+            doc.data().workDays,
+            doc.data().especialidade
+          )
+          entities.push(psicologo)
+        })
+      } else if (entity_type === 'prontuarios') {
+        data.forEach(doc => {
+          const prontuario = new Prontuario(
+            doc.data().date,
+            doc.data().time,
+            doc.data().parecer,
+          )
+          entities.push(prontuario)
+        })
       }
-
+      return entities
     } catch (error) {
-      this.handleError(error, 'Erro inesperado: getAllEntities()')
+      console.log('Erro inesperado: getAllEntities()')
     }
   }
 
   /**
-   * Requisita à database os dados de um cliente específico.
+   * Requisita à database os dados de uma entidade usuário específica.
    *
-   * O request deve conter em sua rota o parâmetro id, o
-   * qual é o identificador único do cliente na base de dados.
-   *
-   * Ex: .../api/get-cliente/id_do_cliente
-   *
-   * @param cpf
-   * @param entity_type
+   * @param cpf String que representa o cpf de um usuário, seu identificador único.
+   * @param entity_type String que representa o tipo de entidade a ser recuperada.
    */
   public getUserEntity = async (cpf: string, entity_type: string) => {
     try {
       const entityRef = await firestore.collection(entity_type)
       const snapshot = await entityRef.where('cpf', '==', cpf).get()
       if (snapshot.empty) {
-        this.responseStatus('Não foi encontrado uma entidade do tipo:"' + entity_type + '" com esse CPF.')
+        console.log('Não foi encontrado uma entidade do tipo:"' + entity_type + '" com esse CPF.')
       } else {
         let docData: any = []
 
@@ -144,7 +124,6 @@ export class RepositorioImpl implements Repositorio {
             docData.email,
             docData.endereco
           )
-          this.sendResponseObject(cliente)
           return cliente
         }
         if (entity_type === 'secretarias') {
@@ -158,7 +137,6 @@ export class RepositorioImpl implements Repositorio {
             docData.worDays,
             docData.workHours
           )
-          this.sendResponseObject(secretaria)
           return secretaria
         }
         if (entity_type === 'psicologos') {
@@ -173,80 +151,46 @@ export class RepositorioImpl implements Repositorio {
             docData.workDays,
             docData.especialidade
           )
-          this.sendResponseObject(psicologo)
           return psicologo
         }
       }
     }
     catch (error) {
-      this.handleError(error, 'Erro inesperado: getUserEntity()')
+      console.log('Erro inesperado: getUserEntity()')
     }
   }
 
   /**
-   * Atualiza os dados de um cliente presente na base de dados.
+   * Atualiza os dados de um entidade presente na base de dados.
    *
-   * O parâmetro data deve necessariamente ser um Json
-   * que respeita o formato estipulado pela classe Cliente.
-   * Caso o Json fuja dos padrões, será retornada uma mensagem
-   * de erro contextualizada.
-   *
-   * O request deve conter em sua rota o parâmetro id, o
-   * qual é o identificador único do cliente na base de dados.
-   *
-   * Ex: .../api/update-cliente/id_do_cliente
-   *
-   * @param id
-   * @param data
+   * @param id String que representa o identifacor único da entidade no banco de dados.
+   * @param data Dados em formato json.
+   * @param entity_type String que representa o tipo de entidade a ser atualizada.
    */
   public updateEntity = async (id: any, data: any, entity_type: string) => {
     try {
       const cliente = await firestore.collection(entity_type).doc(id);
       await cliente.update(data);
-      this.res.send('Entidade do tipo:"' + entity_type + '"atualizada com sucesso.');
+      return 'Entidade do tipo:"' + entity_type + '" atualizada com sucesso.'
     } catch (error) {
-      this.handleError(error, 'Erro inesperado: updateEntity()')
+      console.log('Erro inesperado: updateEntity()')
+      return 'Erro inesperado: updateEntity()'
     }
   }
 
   /**
-   * Deleta um cliente presente na database.
+   * Deleta uma entidade presente na database.
    *
-   * O request deve conter em sua rota o parâmetro id, o
-   * qual é o identificador único do cliente na base de dados.
-   *
-   * Ex: .../api/delete-cliente/id_do_cliente
-   *
-   * @param id
+   * @param id String que representa o identifacor único da entidade no banco de dados.
+   * @param entity_type String que representa o tipo de entidade a ser deletada.
    */
   public deleteEntity = async (id: any, entity_type: string) => {
     try {
       await firestore.collection(entity_type).doc(id).delete();
-      this.res.send('Entidade do tipo:"' + entity_type + '"deletada com sucesso.');
+      return 'Entidade do tipo:"' + entity_type + '" deletada com sucesso.'
     } catch (error) {
-      this.handleError(error, 'Erro inesperado: deleteEntity()')
-    }
-  }
-
-  private handleError(error: any, unexpected_error_message: string) {
-    if (error instanceof Error) {
-      this.res.status(400).send(error.message)
-      return
-    }
-    console.log(unexpected_error_message, error)
-  }
-
-  private responseStatus(relevant_message: string) {
-    if (this.res !== null) {
-      this.res.status(404).send(relevant_message)
-      return
-    }
-    console.log(relevant_message)
-  }
-
-  private sendResponseObject(responseObject: any) {
-    if (this.res !== null) {
-      this.res.send(responseObject)
+      console.log('Erro inesperado: deleteEntity()')
+      return 'Erro inesperado: deleteEntity()'
     }
   }
 }

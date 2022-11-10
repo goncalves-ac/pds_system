@@ -1,5 +1,5 @@
 /**
- * Porta de saída que declara os serviços requeridos pelo sistema.
+ * Porta de saída que declara todos serviços requeridos pelo sistema.
  */
 export interface Repositorio {
   addEntity(data: any, entity_type: string) : any

@@ -1,5 +1,5 @@
 import { PesquisaCliente } from "../dominio/portas/PesquisaCliente";
-import { RepositorioClienteImpl } from "./RepositorioClienteImpl";
+import { RepositorioImpl } from "./RepositorioImpl";
 
 /**
  * Adaptador Web
@@ -28,30 +28,35 @@ export class ClinicaSocialWeb {
   }
 
   public start() {
-    this.router.post('/add-cliente', (req: any, res:any) => {
-      const repo = new RepositorioClienteImpl(res)
+    this.router.post('/add/:entity_type', (req: any, res:any) => {
+      const repo = new RepositorioImpl(res)
       const data = req.body
-      repo.addCliente(data)
+      const entity_type = req.params.entity_type;
+      repo.addEntity(data, entity_type)
     })
-    this.router.get('/get-all-clientes', (req: any, res:any) => {
-      const repo = new RepositorioClienteImpl(res)
-      repo.getAllClientes()
+    this.router.get('/get-all/:entity_type', (req: any, res:any) => {
+      const repo = new RepositorioImpl(res)
+      const entity_type = req.params.entity_type;
+      repo.getAllEntities(entity_type)
     })
-    this.router.get('/get-cliente/:id', (req: any, res:any) => {
-      const repo = new RepositorioClienteImpl(res)
+    this.router.get('/get/:entity_type/:id', (req: any, res:any) => {
+      const repo = new RepositorioImpl(res)
       const id = req.params.id
-      repo.getCliente(id)
+      const entity_type = req.params.entity_type;
+      repo.getEntity(id, entity_type)
     })
-    this.router.put('/update-cliente/:id', (req: any, res:any) => {
-      const repo = new RepositorioClienteImpl(res)
+    this.router.put('/update/:entity_type/:id', (req: any, res:any) => {
+      const repo = new RepositorioImpl(res)
       const id = req.params.id;
       const data = req.body;
-      repo.updateCliente(id, data)
+      const entity_type = req.params.entity_type;
+      repo.updateEntity(id, data, entity_type)
     })
-    this.router.delete('/delete-cliente/:id', (req: any, res:any) => {
-      const repo = new RepositorioClienteImpl(res)
+    this.router.delete('/delete/:entity_type/:id', (req: any, res:any) => {
+      const repo = new RepositorioImpl(res)
       const id = req.params.id;
-      repo.deleteCliente(id)
+      const entity_type = req.params.entity_type;
+      repo.deleteEntity(id, entity_type)
     })
   }
 }

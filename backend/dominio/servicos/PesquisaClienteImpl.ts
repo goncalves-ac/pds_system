@@ -1,17 +1,17 @@
 import { PesquisaCliente } from "../portas/PesquisaCliente";
-import { RepositorioCliente } from "../portas/RepositorioCliente";
+import { Repositorio } from "../portas/Repositorio";
 
 /**
  * Implementa os serviços relacionados a clientes
  */
 export class PesquisaClienteImpl implements PesquisaCliente {
-  private repo: RepositorioCliente
+  private repo: Repositorio
 
-  constructor(repo: RepositorioCliente) {
+  constructor(repo: Repositorio) {
     this.repo = repo
   }
 
   public pesquisaCliente(nome: string) {
-    // return this.repo.getCliente(nome)
+    // return this.repo.getEntity()
   }
 }

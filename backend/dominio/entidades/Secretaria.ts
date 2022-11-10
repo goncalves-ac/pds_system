@@ -1,6 +1,6 @@
 import { User } from '../super-classes/User'
 
-export class Secretarias extends User {
+export class Secretaria extends User {
   private workDays: string
   private workHours: string
 

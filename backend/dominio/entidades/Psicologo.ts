@@ -2,7 +2,7 @@ import { User } from '../super-classes/User'
 import { Prontuario } from './Prontuario'
 import { Cliente } from './Cliente'
 
-export class Psicologos extends User {
+export class Psicologo extends User {
   private crp: string
   private workDays: string
   private especialidade: string

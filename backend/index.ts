@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import { ClinicaSocialWeb } from './adaptadores/ClinicaSocialWeb';
 import { PesquisaClienteImpl } from './dominio/servicos/PesquisaClienteImpl'
-import { RepositorioClienteImpl } from './adaptadores/RepositorioClienteImpl';
+import { RepositorioImpl } from './adaptadores/RepositorioImpl';
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ const app: Express = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const repo = new RepositorioClienteImpl()
+const repo = new RepositorioImpl()
 const pesq = new PesquisaClienteImpl(repo)
 const clinicaSocialWeb = new ClinicaSocialWeb(pesq)
 clinicaSocialWeb.start()

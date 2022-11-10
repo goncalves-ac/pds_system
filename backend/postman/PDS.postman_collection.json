@@ -9,7 +9,7 @@
 			"name": "cliente",
 			"item": [
 				{
-					"name": "add-clientes",
+					"name": "add/clientes",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -39,7 +39,7 @@
 					"response": []
 				},
 				{
-					"name": "update-cliente",
+					"name": "update/cliente/:doc_id",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -70,7 +70,7 @@
 					"response": []
 				},
 				{
-					"name": "get-all-clientes",
+					"name": "get-all/clientes",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -91,12 +91,12 @@
 					"response": []
 				},
 				{
-					"name": "get-cliente",
+					"name": "get-user/cliente/:cpf",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/get/clientes/RTZcI4Z3dDt00f4TPIaA",
+							"raw": "http://localhost:8080/api/get-user/clientes/22222222222",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -104,16 +104,16 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"get",
+								"get-user",
 								"clientes",
-								"RTZcI4Z3dDt00f4TPIaA"
+								"22222222222"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "delete-cliente",
+					"name": "delete/cliente/:doc_id",
 					"request": {
 						"method": "DELETE",
 						"header": [],

@@ -33,11 +33,7 @@ export class RepositorioImpl implements Repositorio {
       this.res.send('Entidade do tipo:"' + entity_type + '" adicionada com sucesso.')
 
     } catch (error) {
-      if (error instanceof Error) {
-        this.res.status(400).send(error.message)
-      } else {
-        console.log('Erro inesperado: addCliente()', error)
-      }
+      this.handleError(error, 'Erro inesperado: addCliente()')
     }
   }
 
@@ -51,7 +47,7 @@ export class RepositorioImpl implements Repositorio {
       const entities: any[] = []
 
       if (data.empty) {
-        this.res.status(404).send('Não há entidades do tipo:"' + entity_type + '" cadastradas na database.')
+        this.responseStatus('Não há entidades do tipo:"' + entity_type + '" cadastradas na database.')
       } else {
         if (entity_type === 'clientes') {
           data.forEach(doc => {
@@ -97,24 +93,20 @@ export class RepositorioImpl implements Repositorio {
         } else if (entity_type === 'prontuarios') {
           data.forEach(doc => {
             const prontuario = new Prontuario(
-              doc.id,
-              doc.data().nome,
-              doc.data().cpf,
+              doc.data().date,
+              doc.data().time,
+              doc.data().parecer,
             )
             entities.push(prontuario)
           })
         }
 
-        this.res.send(entities)
+        this.sendResponseObject(entities)
         return entities
       }
 
     } catch (error) {
-      if (error instanceof Error) {
-        this.res.status(400).send(error.message)
-      } else {
-        console.log('Erro inesperado: getAllEntities()', error)
-      }
+      this.handleError(error, 'Erro inesperado: getAllEntities()')
     }
   }
 
@@ -126,75 +118,68 @@ export class RepositorioImpl implements Repositorio {
    *
    * Ex: .../api/get-cliente/id_do_cliente
    *
-   * @param id
+   * @param cpf
+   * @param entity_type
    */
-  public getEntity = async (id: any, entity_type: string) => {
+  public getUserEntity = async (cpf: string, entity_type: string) => {
     try {
-      const entity = await firestore.collection(entity_type).doc(id)
-      const doc = await entity.get()
-
-      if (!doc.exists) {
-        this.res.status(404).send('Não foi encontrado uma entidade do tipo:"' + entity_type + 'com esse ID.')
+      const entityRef = await firestore.collection(entity_type)
+      const snapshot = await entityRef.where('cpf', '==', cpf).get()
+      if (snapshot.empty) {
+        this.responseStatus('Não foi encontrado uma entidade do tipo:"' + entity_type + '" com esse CPF.')
       } else {
-        // this.res.send(data.data())
+        let docData: any = []
+
+        // Bug: Se houver mais de um usuário com o mesmo CPF, apenas o último usuário da coleção será retornado.
+        snapshot.forEach((doc: { data: () => any }) => {
+          docData = doc.data()
+        });
+
         if (entity_type === 'clientes') {
           const cliente = new Cliente(
-            doc.id,
-            doc.data().nome,
-            doc.data().cpf,
-            doc.data().telefone,
-            doc.data().email,
-            doc.data().endereco
+            docData.id,
+            docData.nome,
+            docData.cpf,
+            docData.telefone,
+            docData.email,
+            docData.endereco
           )
-          this.res.send(cliente)
+          this.sendResponseObject(cliente)
           return cliente
         }
         if (entity_type === 'secretarias') {
           const secretaria = new Secretaria(
-            doc.id,
-            doc.data().nome,
-            doc.data().cpf,
-            doc.data().telefone,
-            doc.data().email,
-            doc.data().endereco,
-            doc.data().worDays,
-            doc.data().workHours
+            docData.id,
+            docData.nome,
+            docData.cpf,
+            docData.telefone,
+            docData.email,
+            docData.endereco,
+            docData.worDays,
+            docData.workHours
           )
-          this.res.send(secretaria)
+          this.sendResponseObject(secretaria)
           return secretaria
         }
         if (entity_type === 'psicologos') {
           const psicologo = new Psicologo(
-            doc.id,
-            doc.data().nome,
-            doc.data().cpf,
-            doc.data().telefone,
-            doc.data().email,
-            doc.data().endereco,
-            doc.data().crp,
-            doc.data().workDays,
-            doc.data().especialidade
+            docData.id,
+            docData.nome,
+            docData.cpf,
+            docData.telefone,
+            docData.email,
+            docData.endereco,
+            docData.crp,
+            docData.workDays,
+            docData.especialidade
           )
-          this.res.send(psicologo)
+          this.sendResponseObject(psicologo)
           return psicologo
-        }
-        if (entity_type === 'prontuarios') {
-          const prontuario = new Prontuario(
-            doc.id,
-            doc.data().nome,
-            doc.data().cpf,
-          )
-          this.res.send(prontuario)
-          return prontuario
         }
       }
     }
     catch (error) {
-      if (error instanceof Error) {
-        this.res.status(400).send(error.message)
-      } else {
-        console.log('Erro inesperado: getEntity()', error)
-      }
+      this.handleError(error, 'Erro inesperado: getUserEntity()')
     }
   }
 
@@ -220,11 +205,7 @@ export class RepositorioImpl implements Repositorio {
       await cliente.update(data);
       this.res.send('Entidade do tipo:"' + entity_type + '"atualizada com sucesso.');
     } catch (error) {
-      if (error instanceof Error) {
-        this.res.status(400).send(error.message)
-      } else {
-        console.log('Erro inesperado: updateEntity()', error)
-      }
+      this.handleError(error, 'Erro inesperado: updateEntity()')
     }
   }
 
@@ -243,11 +224,29 @@ export class RepositorioImpl implements Repositorio {
       await firestore.collection(entity_type).doc(id).delete();
       this.res.send('Entidade do tipo:"' + entity_type + '"deletada com sucesso.');
     } catch (error) {
-      if (error instanceof Error) {
-        this.res.status(400).send(error.message)
-      } else {
-        console.log('Erro inesperado: deleteEntity()', error)
-      }
+      this.handleError(error, 'Erro inesperado: deleteEntity()')
+    }
+  }
+
+  private handleError(error: any, unexpected_error_message: string) {
+    if (error instanceof Error) {
+      this.res.status(400).send(error.message)
+      return
+    }
+    console.log(unexpected_error_message, error)
+  }
+
+  private responseStatus(relevant_message: string) {
+    if (this.res !== null) {
+      this.res.status(404).send(relevant_message)
+      return
+    }
+    console.log(relevant_message)
+  }
+
+  private sendResponseObject(responseObject: any) {
+    if (this.res !== null) {
+      this.res.send(responseObject)
     }
   }
 }

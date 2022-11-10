@@ -39,11 +39,11 @@ export class ClinicaSocialWeb {
       const entity_type = req.params.entity_type;
       repo.getAllEntities(entity_type)
     })
-    this.router.get('/get/:entity_type/:id', (req: any, res:any) => {
+    this.router.get('/get-user/:entity_type/:cpf', (req: any, res:any) => {
       const repo = new RepositorioImpl(res)
-      const id = req.params.id
+      const cpf = req.params.cpf
       const entity_type = req.params.entity_type;
-      repo.getEntity(id, entity_type)
+      repo.getUserEntity(cpf, entity_type)
     })
     this.router.put('/update/:entity_type/:id', (req: any, res:any) => {
       const repo = new RepositorioImpl(res)

@@ -1,24 +1,8 @@
 import React from 'react'
 import { Container } from '../../layout'
 import { AppBar, Menu } from '../../components'
-import axios from 'axios'
 import Box from '@mui/material/Box'
 import Outubro from '../../../src/assets/outubro-rosa.png'
-
-const Home: React.FC = () => {
-
-    const url = 'http://localhost:8083/api/get-all/psicologos'
-
-    function getUser() {
-        axios.get(url)
-            .then(response => {
-                console.log(response)
-            })
-            .catch(e => console.log(e))
-    }
-
-    console.log(getUser())
-
 
 const Home: React.FC = () => {
 

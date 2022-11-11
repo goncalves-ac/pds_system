@@ -51,7 +51,7 @@ export class RepositorioImpl implements Repositorio {
           entities.push(cliente)
         })
       } else if (entity_type === 'secretarias') {
-        data.forEach(doc => {
+        data.forEach((doc: any) => {
           const secretaria = new Secretaria(
             doc.id,
             doc.data().nome,
@@ -65,7 +65,7 @@ export class RepositorioImpl implements Repositorio {
           entities.push(secretaria)
         })
       } else if (entity_type === 'psicologos') {
-        data.forEach(doc => {
+        data.forEach((doc: any) => {
           const psicologo = new Psicologo(
             doc.id,
             doc.data().nome,
@@ -80,7 +80,7 @@ export class RepositorioImpl implements Repositorio {
           entities.push(psicologo)
         })
       } else if (entity_type === 'prontuarios') {
-        data.forEach(doc => {
+        data.forEach((doc: any) => {
           const prontuario = new Prontuario(
             doc.data().date,
             doc.data().time,

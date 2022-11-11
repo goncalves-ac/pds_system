@@ -2,7 +2,7 @@
     position: fixed;
     left: 0px;
     bottom: 0px;
-    z-index: 0;
+    z-index: 10;
     background-color: #554C76;
     transition: transform .2s;
     width: 72px;

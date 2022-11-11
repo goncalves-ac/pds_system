@@ -39,7 +39,7 @@ export class RepositorioImpl implements Repositorio {
       const entities: any[] = []
 
       if (entity_type === 'clientes') {
-        data.forEach(doc => {
+        data.forEach((doc: any) => {
           const cliente = new Cliente(
             doc.id,
             doc.data().nome,

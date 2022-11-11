@@ -22,3 +22,9 @@ No seu browser ou postman, realize requests acessando as rotas delimitadas pelo 
 ## Sugestão
 Utilizar o software Postman para facilitar o manejamento de requests. Basta fazer o download da aplicação em https://www.postman.com/downloads/ e importar a coleção disponível no diretório ./postman:
 - https://github.com/goncalves-ac/pds_system/blob/back-end-dev/backend/postman/PDS.postman_collection.json
+
+## Principal serviço entregue pelo Back-end:
+Assegurar que os requests de adição e update de entidades segue os padrões estipulados pela definição das classes de domínio.
+
+- Entidades usuário da mesma coleção devem necessariamente ter CPF's distintos. O mesmo CPF pode, no entanto, ser cadastrado em diferentes coleções para entidades usuário pois nada impede que um psicologo seja paciente ou até mesmo secretária, e assim pr diante.
+- Já que o CPF é tão importante, talvez faça sentido ter um validador de CPF's. Mas isso seria entrega para um momento posterior, pois dificulta interação com a DB.

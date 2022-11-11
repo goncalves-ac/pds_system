@@ -1,4 +1,4 @@
-import { UnidadeOrganizacional } from "../super-classes/UnidadeOrganizacional";
+import { UnidadeOrganizacional } from "../super-classes/UnidadeOrganizacional"
 
 export class Consulta extends UnidadeOrganizacional {
   private hora: string

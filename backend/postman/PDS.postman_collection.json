@@ -18,7 +18,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"nome\": \"Josias Ferdinando\",\n    \"cpf\": \"22222222222\",\n    \"telefone\": \"31922222222\",\n    \"email\": \"JosiasFerdinando@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"Ap. 222\",\n        \"numero\": \"123\",\n        \"estado\": \"Minas Gerais\",\n        \"bairro\": \"Centro\",\n        \"cidade\": \"Belo Horizonte\",\n        \"cep\": \"32222222\"\n    },\n}",
+									"raw": "{\n    \"nome\": \"Josias Ferdinando\",\n    \"cpf\": \"22222222222\",\n    \"telefone\": \"31922222222\",\n    \"email\": \"JosiasFerdinando@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"Ap. 222\",\n        \"numero\": \"123\",\n        \"estado\": \"Minas Gerais\",\n        \"bairro\": \"Centro\",\n        \"cidade\": \"Belo Horizonte\",\n        \"cep\": \"32222222\"\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -525,7 +525,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"nomeCliente\": \"Anatole Gomide\",\n    \"nomePsicologo\": \"Amadeus Torres\",\n    \"dia\": \"25\",\n    \"mes\": \"06\",\n    \"ano\": \"2022\",\n    \"parecer\": \"Hoje Anatole se demonstrou muito inquieto. Seria interessante aumentar a periodicidade das consultas.\"\n}",
+									"raw": "{\n    \"nomeCliente\": \"Josias Ferdinando\",\n    \"nomePsicologo\": \"Amadeus Torres\",\n    \"dia\": \"25\",\n    \"mes\": \"06\",\n    \"ano\": \"2022\",\n    \"parecer\": \"O paciente demonstrou grande progresso nas últimas seções. Talvez seja hora de considerar terapias mais brandas.\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"

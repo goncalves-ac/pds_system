@@ -9,13 +9,13 @@
 			"name": "cliente",
 			"item": [
 				{
-					"name": "add-clientes",
+					"name": "add/clientes",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Jonas Besolito\",\n    \"cpf\": \"12345678912\",\n    \"telefone\": \"31999228873\",\n    \"email\": \"adelaide@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"Ap. 209\",\n        \"numero\": \"542\",\n        \"estado\": \"Rio Grande do Sul\",\n        \"bairro\": \"BCD\",\n        \"cidade\": \"Janaína do Sul\",\n        \"cep\": \"31356555\"\n    }\n}",
+							"raw": "{\n    \"cpf\": \"12345678912\",\n    \"telefone\": \"31999228873\",\n    \"email\": \"adelaide@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"Ap. 209\",\n        \"numero\": \"542\",\n        \"estado\": \"Rio Grande do Sul\",\n        \"bairro\": \"BCD\",\n        \"cidade\": \"Janaína do Sul\",\n        \"cep\": \"31356555\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,7 +23,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/add-cliente",
+							"raw": "http://localhost:8080/api/add/cliente",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -31,14 +31,15 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"add-cliente"
+								"add",
+								"cliente"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "update-cliente",
+					"name": "update/cliente/:doc_id",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -52,7 +53,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/update-cliente/BDzydIHTgIe66dSJavvF",
+							"raw": "http://localhost:8080/api/update/cliente/r4pof7ejDucCQCMgUwoT",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -60,20 +61,21 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"update-cliente",
-								"BDzydIHTgIe66dSJavvF"
+								"update",
+								"cliente",
+								"r4pof7ejDucCQCMgUwoT"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "get-all-clientes",
+					"name": "get-all/clientes",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/get-all-clientes",
+							"raw": "http://localhost:8080/api/get-all/clientes",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -81,19 +83,20 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"get-all-clientes"
+								"get-all",
+								"clientes"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "get-cliente",
+					"name": "get-user/cliente/:cpf",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/get-cliente/BDzydIHTgIe66dSJavvF",
+							"raw": "http://localhost:8080/api/get-user/clientes/22222222222",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -101,15 +104,16 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"get-cliente",
-								"BDzydIHTgIe66dSJavvF"
+								"get-user",
+								"clientes",
+								"22222222222"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "delete-cliente",
+					"name": "delete/cliente/:doc_id",
 					"request": {
 						"method": "DELETE",
 						"header": [],

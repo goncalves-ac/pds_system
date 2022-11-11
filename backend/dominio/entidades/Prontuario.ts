@@ -1,17 +1,11 @@
-export class Prontuario {
-  private date: string
-  private time: string
+import { UnidadeOrganizacional } from "../super-classes/UnidadeOrganizacional"
+
+export class Prontuario extends UnidadeOrganizacional {
   private parecer: string
 
   /**
    * Getters
    */
-  public getDate(): string {
-    return this.date
-  }
-  public getTime(): string {
-    return this.time
-  }
   public getParecer(): string {
     return this.parecer
   }
@@ -19,21 +13,15 @@ export class Prontuario {
   /**
    * Setters
    */
-  protected setDate(date: string): void {
-    this.date = date
-  }
-  protected setTime(time: string): void {
-    this.time = time
-  }
-  public setParecer(parecer: string): void {
+  protected setParecer(parecer: string): void {
     this.parecer = parecer
   }
 
   constructor(
-    date: string, time: string, parecer: string,
+    id: string, nomeCliente: string, nomePsicologo: string, dia: string, mes: string, ano:string,
+    parecer: string
   ) {
-    this.date = date
-    this.time = time
+    super(id, nomeCliente, nomePsicologo, dia, mes, ano)
     this.parecer = parecer
   }
 }

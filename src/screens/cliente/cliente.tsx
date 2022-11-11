@@ -30,7 +30,6 @@ const Cliente: React.FC = () => {
         'ID',
         'Nome do cliente',
         'CPF',
-        'Atendido por',
         'Telefone',
         'Ações',
     ]
@@ -87,10 +86,10 @@ const Cliente: React.FC = () => {
                         {clientes !== null && clientes?.map((item: any) => {
                             return (
                                 <Box key='teste' sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid silver', gap: '0.5rem' }}>
-                                    <Text>{item.id}</Text>
-                                    <Text>{item.nome}</Text>
-                                    <Text>{item.cpf}</Text>
-                                    <Text>{item.telefone}</Text>
+                                    <Text>{item?.id}</Text>
+                                    <Text>{item?.nome}</Text>
+                                    <Text>{item?.cpf}</Text>
+                                    <Text>{item?.telefone}</Text>
                                     <Box sx={{ display: 'flex', justifyContent: 'center', width: '15%' }}>
                                         <CreateIcon sx={{ marginRight: '2rem' }} />
                                         <TextSnippetIcon />

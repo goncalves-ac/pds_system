@@ -13,7 +13,7 @@ export const Subtitle = styled.p`
     text-align: center;
 `
 export const Text = styled.p`
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 300;
     width: 15%;
     text-align: center;

@@ -4,6 +4,7 @@ import { Secretaria } from '../dominio/entidades/Secretaria'
 import { Psicologo } from '../dominio/entidades/Psicologo'
 import { Prontuario } from '../dominio/entidades/Prontuario'
 import { Repositorio } from '../dominio/portas/Repositorio'
+import { Consulta } from '../dominio/entidades/Consulta'
 
 const firestore = db.firestore()
 
@@ -82,11 +83,28 @@ export class RepositorioImpl implements Repositorio {
       } else if (entity_type === 'prontuarios') {
         data.forEach(doc => {
           const prontuario = new Prontuario(
-            doc.data().date,
-            doc.data().time,
-            doc.data().parecer,
+            doc.id,
+            doc.data().nomeCliente,
+            doc.data().nomePsicologo,
+            doc.data().dia,
+            doc.data().mes,
+            doc.data().ano,
+            doc.data().parecer
           )
           entities.push(prontuario)
+        })
+      } else if (entity_type === 'consultas') {
+        data.forEach(doc => {
+          const consulta = new Consulta(
+            doc.id,
+            doc.data().nomeCliente,
+            doc.data().nomePsicologo,
+            doc.data().dia,
+            doc.data().mes,
+            doc.data().ano,
+            doc.data().hora
+          )
+          entities.push(consulta)
         })
       }
       return entities

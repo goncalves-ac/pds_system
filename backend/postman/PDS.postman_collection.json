@@ -6,132 +6,623 @@
 	},
 	"item": [
 		{
-			"name": "cliente",
+			"name": "Entidades Usuario",
 			"item": [
 				{
-					"name": "add/clientes",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"cpf\": \"12345678912\",\n    \"telefone\": \"31999228873\",\n    \"email\": \"adelaide@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"Ap. 209\",\n        \"numero\": \"542\",\n        \"estado\": \"Rio Grande do Sul\",\n        \"bairro\": \"BCD\",\n        \"cidade\": \"Janaína do Sul\",\n        \"cep\": \"31356555\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "clientes",
+					"item": [
+						{
+							"name": "add/cliente",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Josias Ferdinando\",\n    \"cpf\": \"22222222222\",\n    \"telefone\": \"31922222222\",\n    \"email\": \"JosiasFerdinando@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"Ap. 222\",\n        \"numero\": \"123\",\n        \"estado\": \"Minas Gerais\",\n        \"bairro\": \"Centro\",\n        \"cidade\": \"Belo Horizonte\",\n        \"cep\": \"32222222\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/add/clientes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"add",
+										"clientes"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/add/cliente",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"add",
-								"cliente"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update/cliente/:doc_id",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Jacunaima\",\n    \"cpf\": \"12345678912\",\n    \"telefone\": \"31999228873\",\n    \"email\": \"jacunaima@gmail.com\",\n    \"endereco\" : {\n        \"bairro\": \"BCD\",\n        \"cep\": \"31356555\",\n        \"cidade\": \"Janaína do Sul\",\n        \"complemento\": \"Ap. 209\",\n        \"estado\": \"Rio Grande do Sul\",\n        \"numero\": \"542\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "update/cliente/:doc_id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Jacunaima\",\n    \"cpf\": \"12345678912\",\n    \"telefone\": \"31999228873\",\n    \"email\": \"jacunaima@gmail.com\",\n    \"endereco\" : {\n        \"bairro\": \"BCD\",\n        \"cep\": \"31356555\",\n        \"cidade\": \"Janaína do Sul\",\n        \"complemento\": \"Ap. 209\",\n        \"estado\": \"Rio Grande do Sul\",\n        \"numero\": \"542\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/update/clientes/I0pcvEmmfLDmVVcKcQDg",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"update",
+										"clientes",
+										"I0pcvEmmfLDmVVcKcQDg"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/update/cliente/r4pof7ejDucCQCMgUwoT",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"update",
-								"cliente",
-								"r4pof7ejDucCQCMgUwoT"
-							]
+						{
+							"name": "get-all/clientes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/get-all/clientes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"get-all",
+										"clientes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-user/cliente/:cpf",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/get-user/clientes/12345678912",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"get-user",
+										"clientes",
+										"12345678912"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete/cliente/:doc_id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/delete/clientes/FNaOInMyKycjGnoJTX2t",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"delete",
+										"clientes",
+										"FNaOInMyKycjGnoJTX2t"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "get-all/clientes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/get-all/clientes",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"get-all",
-								"clientes"
-							]
+					"name": "psicologos",
+					"item": [
+						{
+							"name": "add/psicologo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Amadeus Torres\",\n    \"cpf\": \"11111111111\",\n    \"telefone\": \"31911111111\",\n    \"email\": \"AmadeusTorres@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"\",\n        \"numero\": \"789\",\n        \"estado\": \"Minas Gerais\",\n        \"bairro\": \"Lourdes\",\n        \"cidade\": \"Belo Horizonte\",\n        \"cep\": \"31111111\"\n    },\n    \"crp\": \"06/000470-IS\",\n    \"workDays\": \"Segunda a Sexta\",\n    \"especialidade\": \"Psicopedagogia\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/add/psicologos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"add",
+										"psicologos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update/psicologo/:doc_id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Amadeus Torres\",\n    \"cpf\": \"11111111111\",\n    \"telefone\": \"31911111111\",\n    \"email\": \"AmadeusTorres@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"\",\n        \"numero\": \"789\",\n        \"estado\": \"Minas Gerais\",\n        \"bairro\": \"Lourdes\",\n        \"cidade\": \"Belo Horizonte\",\n        \"cep\": \"31111111\"\n    },\n    \"crp\": \"06/000470-IS\",\n    \"workDays\": \"Segunda a Sexta\",\n    \"especialidade\": \"Psicopedagogia\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/update/psicologos/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"update",
+										"psicologos",
+										"..."
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all/psicologos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/get-all/psicologos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"get-all",
+										"psicologos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-user/psicologo/:cpf",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/get-user/psicologos/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"get-user",
+										"psicologos",
+										"..."
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete/psicologo/:doc_id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/delete/psicologos/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"delete",
+										"psicologos",
+										"..."
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "get-user/cliente/:cpf",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/get-user/clientes/22222222222",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"get-user",
-								"clientes",
-								"22222222222"
-							]
+					"name": "secretarias",
+					"item": [
+						{
+							"name": "add/secretaria",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Natalia Amaral\",\n    \"cpf\": \"33333333333\",\n    \"telefone\": \"319333333\",\n    \"email\": \"NataliaAmaral@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"\",\n        \"numero\": \"456\",\n        \"estado\": \"Minas Gerais\",\n        \"bairro\": \"Belvedere\",\n        \"cidade\": \"Belo Horizonte\",\n        \"cep\": \"31333333\"\n    },\n    \"workDays\": \"Segunda a Sexta\",\n    \"workHours\": \"7 até 15\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/add/secretarias",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"add",
+										"secretarias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update/secretaria/:doc_id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Natalia Amaral\",\n    \"cpf\": \"33333333333\",\n    \"telefone\": \"319333333\",\n    \"email\": \"NataliaAmaral@gmail.com\",\n    \"endereco\": {\n        \"complemento\": \"\",\n        \"numero\": \"456\",\n        \"estado\": \"Minas Gerais\",\n        \"bairro\": \"Belvedere\",\n        \"cidade\": \"Belo Horizonte\",\n        \"cep\": \"31333333\"\n    },\n    \"workDays\": \"Segunda a Sexta\",\n    \"workHours\": \"7 até 15\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/update/secretarias/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"update",
+										"secretarias",
+										"..."
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all/secretarias",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/get-all/secretarias",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"get-all",
+										"secretarias"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-user/secretaria/:cpf",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/get-user/secretarias/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"get-user",
+										"secretarias",
+										"..."
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete/secretaria/:doc_id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/delete/secretarias/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"delete",
+										"secretarias",
+										"..."
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				}
+			]
+		},
+		{
+			"name": "Entidades Organizacionais",
+			"item": [
+				{
+					"name": "consultas",
+					"item": [
+						{
+							"name": "add/consulta",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nomeCliente\": \"Josias Ferdinando\",\n    \"nomePsicologo\": \"Amadeus Torres\",\n    \"dia\": \"25\",\n    \"mes\": \"06\",\n    \"ano\": \"2022\",\n    \"hora\": \"13:45\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/add/consultas",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"add",
+										"consultas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update/consulta/:doc_id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Jacunaima\",\n    \"cpf\": \"12345678912\",\n    \"telefone\": \"31999228873\",\n    \"email\": \"jacunaima@gmail.com\",\n    \"endereco\" : {\n        \"bairro\": \"BCD\",\n        \"cep\": \"31356555\",\n        \"cidade\": \"Janaína do Sul\",\n        \"complemento\": \"Ap. 209\",\n        \"estado\": \"Rio Grande do Sul\",\n        \"numero\": \"542\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/update/consultas/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"update",
+										"consultas",
+										"..."
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all/consulta",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/get-all/consultas",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"get-all",
+										"consultas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete/consulta/:doc_id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/delete/consultas/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"delete",
+										"consultas",
+										"..."
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
-					"name": "delete/cliente/:doc_id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/delete-cliente/BDzydIHTgIe66dSJavvF",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"delete-cliente",
-								"BDzydIHTgIe66dSJavvF"
-							]
+					"name": "prontuarios",
+					"item": [
+						{
+							"name": "add/prontuario",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nomeCliente\": \"Josias Ferdinando\",\n    \"nomePsicologo\": \"Amadeus Torres\",\n    \"dia\": \"25\",\n    \"mes\": \"06\",\n    \"ano\": \"2022\",\n    \"parecer\": \"O paciente demonstrou grande progresso nas últimas seções. Talvez seja hora de considerar terapias mais brandas.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/add/prontuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"add",
+										"prontuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update/prontuario/:doc_id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Jacunaima\",\n    \"cpf\": \"12345678912\",\n    \"telefone\": \"31999228873\",\n    \"email\": \"jacunaima@gmail.com\",\n    \"endereco\" : {\n        \"bairro\": \"BCD\",\n        \"cep\": \"31356555\",\n        \"cidade\": \"Janaína do Sul\",\n        \"complemento\": \"Ap. 209\",\n        \"estado\": \"Rio Grande do Sul\",\n        \"numero\": \"542\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/update/prontuarios/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"update",
+										"prontuarios",
+										"..."
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all/prontuarios",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/get-all/prontuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"get-all",
+										"prontuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete/prontuario/:doc_id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/delete/prontuarios/...",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"delete",
+										"prontuarios",
+										"..."
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		}

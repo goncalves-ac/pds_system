@@ -5,12 +5,34 @@ import Box from '@mui/material/Box'
 import { Title, Subtitle, Text, Label } from './styles'
 import CloseIcon from '@mui/icons-material/Close'
 import Radio from '@mui/material/Radio'
+import axios from 'axios'
+import { Button } from '@mui/material'
+
+interface UsuarioRequest {
+    nome: string,
+    cpf: string,
+    telefone: string,
+    email: string,
+    endereco: {
+        complemento: string,
+        numero: string,
+        estado: string,
+        bairro: string,
+        cidade: string,
+        cep: string
+    },
+    workDays?: string,
+    workHours?: string
+    crp?: string,
+    especialidade?: string
+}
 
 const Cadastro: React.FC = () => {
 
-    const [email, setEmail] = React.useState('')
+    const [nome, setNome] = React.useState('')
     const [cpf, setCpf] = React.useState('')
     const [telefone, setTelefone] = React.useState('')
+    const [email, setEmail] = React.useState('')
     const [responsavel, setResponsavel] = React.useState('')
     const [cep, setCep] = React.useState('')
     const [estado, setEstado] = React.useState('')
@@ -18,12 +40,67 @@ const Cadastro: React.FC = () => {
     const [bairro, setBairro] = React.useState('')
     const [rua, setRua] = React.useState('')
     const [numero, setNumero] = React.useState('')
+    const [complemento, setComplemento] = React.useState('')
+    const [tipoUsuario, setTipoUsuario] = React.useState('clientes')
+
+    //--------SECRETARIO
+    const [workDays, setWorkDays] = React.useState('')
+    const [workHours, setWorkHours] = React.useState('')
+
+    //--------PSICOLOGO
+    const [crp, setCrp] = React.useState('')
+    const [especialidade, setEspecialidade] = React.useState('')
 
 
-    const [selectedValue, setSelectedValue] = React.useState('a')
+    const [selectedValue, setSelectedValue] = React.useState('clientes')
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedValue(event.target.value)
+        setTipoUsuario(event.target.value)
+    }
+
+    const url = `http://localhost:8083/api//add/${tipoUsuario}`
+
+    const submitCadastro = () => {
+
+        let request: UsuarioRequest = {
+            nome,
+            telefone,
+            cpf,
+            email,
+            endereco: {
+                estado,
+                cidade,
+                bairro, 
+                numero,
+                complemento,
+                cep,
+            },
+        }
+
+        if (tipoUsuario === 'psicologos') {
+
+            request = {
+                ...request,
+                crp,
+                workDays,
+                especialidade,
+            }
+
+        } else if (tipoUsuario === 'secretarias') {
+
+            request = {
+                ...request,
+                workDays,
+                workHours,
+            }
+        }
+
+        axios.post(url, request)
+            .then((response: { data: any }) => {
+                console.log(response)
+            })
+            .catch(e => console.log(e))
     }
 
     return (
@@ -47,29 +124,29 @@ const Cadastro: React.FC = () => {
 
                     <Box sx={{ display: 'flex', width: '100%', alignItems: 'center' }}>
                         <Radio
-                            checked={selectedValue === 'a'}
+                            checked={selectedValue === 'clientes'}
                             onChange={handleChange}
-                            value="a"
+                            value="clientes"
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'A' }}
                         />
                         <Text>Paciente</Text>
                         <Radio
-                            checked={selectedValue === 'b'}
+                            checked={selectedValue === 'psicologos'}
                             onChange={handleChange}
-                            value="b"
+                            value="psicologos"
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'B' }}
                         />
                         <Text>Psicologo</Text>
                         <Radio
-                            checked={selectedValue === 'c'}
+                            checked={selectedValue === 'secretarias'}
                             onChange={handleChange}
-                            value="c"
+                            value="secretarias"
                             name="radio-buttons"
                             inputProps={{ 'aria-label': 'C' }}
                         />
-                        <Text>Secretária</Text>
+                        <Text>Secretário</Text>
 
                     </Box>
                 </Box>
@@ -82,9 +159,9 @@ const Cadastro: React.FC = () => {
                             <Label>Nome</Label>
                             <Input
                                 borderColor={undefined}
-                                value={email}
-                                setValue={setEmail}
-                                placeholder='E-mail'
+                                value={nome}
+                                setValue={setNome}
+                                placeholder='Nome'
                                 width='100%'
                             />
                         </Box>
@@ -121,6 +198,60 @@ const Cadastro: React.FC = () => {
                                 width='100%'
                             />
                         </Box>
+
+                        {tipoUsuario !== 'clientes' && 
+                            <>
+                                <Subtitle>Dados de Cargo</Subtitle>
+
+                                <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '1.5rem' }}>
+                                    <Label>Dias de trabalho</Label>
+                                    <Input
+                                        borderColor={undefined}
+                                        value={workDays}
+                                        setValue={setWorkDays}
+                                        placeholder='Ex.: Segunda à Sexta'
+                                        width='100%'
+                                    />
+                                </Box>
+
+                                {tipoUsuario === 'secretarias' ?
+
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '1.5rem' }}>
+                                        <Label>Horário de trabalho</Label>
+                                        <Input
+                                            borderColor={undefined}
+                                            value={workHours}
+                                            setValue={setWorkHours}
+                                            placeholder='Ex.: 07h às 15h'
+                                            width='100%'
+                                        />
+                                    </Box> :
+                                    <>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '1.5rem' }}>
+                                            <Label>Especialidade</Label>
+                                            <Input
+                                                borderColor={undefined}
+                                                value={especialidade}
+                                                setValue={setEspecialidade}
+                                                placeholder='Ex.: Psicanálise'
+                                                width='100%'
+                                            />
+                                        </Box>
+
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '1.5rem' }}>
+                                            <Label>CRP</Label>
+                                            <Input
+                                                borderColor={undefined}
+                                                value={crp}
+                                                setValue={setCrp}
+                                                placeholder='Ex.: 3111111'
+                                                width='100%'
+                                            />
+                                        </Box>
+                                    </> 
+                                }
+                            </>
+                        }
                     </Box>
 
                     <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
@@ -181,7 +312,7 @@ const Cadastro: React.FC = () => {
                             />
                         </Box>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '1.5rem' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '1.5rem', marginBottom: '1.5rem' }}>
                             <Label>Número</Label>
                             <Input
                                 borderColor={undefined}
@@ -191,6 +322,15 @@ const Cadastro: React.FC = () => {
                                 width='100%'
                             />
                         </Box>
+                        
+                        <Button
+                            variant='contained'
+                            disabled={(!nome || !cpf || !telefone)}
+                            style={{width: 200, color: 'white', backgroundColor: '#8778BB', borderRadius: 25}}
+                            onClick={submitCadastro}
+                        >
+                            Cadastrar
+                        </Button>
                     </Box>
 
                 </Box>

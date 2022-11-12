@@ -17,6 +17,7 @@ const Login: React.FC = () => {
     const navigate = useNavigate()
 
     const onLogin = async () => {
+        navigate('/home')
         setValidate(true)
 
         if (email && password) {

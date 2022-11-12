@@ -5,8 +5,10 @@ import Box from '@mui/material/Box'
 import { Title, Subtitle, Text, Label } from './styles'
 import CloseIcon from '@mui/icons-material/Close'
 import Radio from '@mui/material/Radio'
-import axios from 'axios'
 import { Button } from '@mui/material'
+import { IconButton } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 interface UsuarioRequest {
     nome: string,
@@ -50,6 +52,8 @@ const Cadastro: React.FC = () => {
     //--------PSICOLOGO
     const [crp, setCrp] = React.useState('')
     const [especialidade, setEspecialidade] = React.useState('')
+
+    const navigate = useNavigate()
 
 
     const [selectedValue, setSelectedValue] = React.useState('clientes')
@@ -116,7 +120,9 @@ const Cadastro: React.FC = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', padding: '10rem 15rem 10rem 15rem', width: '100%', height: '80%', overflowY: 'auto' }}>
                 <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
                     <Title>Cadastrar usuário</Title>
-                    <CloseIcon />
+                    <IconButton onClick={() => navigate('/home')}>
+                        <CloseIcon sx={{color: 'black'}} />
+                    </IconButton>
                 </Box>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>

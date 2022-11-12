@@ -21,11 +21,11 @@ export class CRUDImpl implements CRUD {
     this.entidadesUsuário = ['clientes', 'psicologos', 'secretarias']
     this.entidadesOrganizacionais = ['consultas', 'prontuarios']
     // Declaração dos campos válidos para cada tipo de entidade
-    this.camposCliente = ['id', 'nome', 'cpf', 'telefone', 'email', 'endereco']
-    this.camposPsicologo = ['id', 'nome', 'cpf', 'telefone', 'email', 'endereco', 'crp', 'workDays', 'especialidade']
-    this.camposSecretaria = ['id', 'nome', 'cpf', 'telefone', 'email', 'endereco', 'workDays', 'workHours']
-    this.camposConsulta = ['id', 'nomeCliente', 'nomePsicologo', 'dia', 'mes', 'ano', 'hora']
-    this.camposProntuario = ['id', 'nomeCliente', 'nomePsicologo', 'dia', 'mes', 'ano', 'parecer']
+    this.camposCliente = ['nome', 'cpf', 'telefone', 'email', 'endereco']
+    this.camposPsicologo = ['nome', 'cpf', 'telefone', 'email', 'endereco', 'crp', 'workDays', 'especialidade']
+    this.camposSecretaria = ['nome', 'cpf', 'telefone', 'email', 'endereco', 'workDays', 'workHours']
+    this.camposConsulta = ['nomeCliente', 'nomePsicologo', 'dia', 'mes', 'ano', 'hora']
+    this.camposProntuario = ['nomeCliente', 'nomePsicologo', 'dia', 'mes', 'ano', 'parecer']
   }
 
   /**
@@ -54,10 +54,13 @@ export class CRUDImpl implements CRUD {
     }
   }
   private validarCamposDeEntidade(entity_type: string, dataObject: any): void {
+    let quantidadeDeCampos = 0;
     Object.entries(dataObject).forEach(([chave, valor]) => {
       this.validarChave(entity_type, chave)
       this.validarTipos(entity_type, chave, valor)
+      quantidadeDeCampos++
     })
+    this.validarQuantidadeDeCampos(entity_type, quantidadeDeCampos)
   }
   private validarChave(entity_type: string, chave: string): void {
     const mensagemDeErro = 'Entidade do tipo:"' + entity_type + '" não possui campo com nome:"' + chave + '"'
@@ -88,6 +91,39 @@ export class CRUDImpl implements CRUD {
     }
     if (!(typeof valor === 'string')) {
       throw new Error('Entidade:"' + entity_type + '" deve ter campo:"' + chave + '" como tipo string e não "' + typeof valor + '"');
+    }
+  }
+  // Todo: refatorar if statements, colocando-os numa única função.
+  private validarQuantidadeDeCampos(entity_type:string, quantidadeDeCampos: number) {
+    let qtdCampos = this.camposCliente.length
+    if (entity_type === 'clientes' && quantidadeDeCampos !== qtdCampos) {
+      throw new Error(
+        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
+      );
+    }
+    qtdCampos = this.camposPsicologo.length
+    if (entity_type === 'psicologos' && quantidadeDeCampos !== qtdCampos) {
+      throw new Error(
+        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
+      );
+    }
+    qtdCampos = this.camposSecretaria.length
+    if (entity_type === 'secretarias' && quantidadeDeCampos !== qtdCampos) {
+      throw new Error(
+        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
+      );
+    }
+    qtdCampos = this.camposConsulta.length
+    if (entity_type === 'consultas' && quantidadeDeCampos !== qtdCampos) {
+      throw new Error(
+        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
+      );
+    }
+    qtdCampos = this.camposProntuario.length
+    if (entity_type === 'prontuarios' && quantidadeDeCampos !== qtdCampos) {
+      throw new Error(
+        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
+      );
     }
   }
 

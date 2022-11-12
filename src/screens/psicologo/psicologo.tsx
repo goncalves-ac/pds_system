@@ -8,12 +8,16 @@ import CloseIcon from '@mui/icons-material/Close'
 import { Input } from '../../components'
 import CreateIcon from '@mui/icons-material/Create'
 import TextSnippetIcon from '@mui/icons-material/TextSnippet'
+import { IconButton } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const Psicologo: React.FC = () => {
 
     const [psicologos, setPsicologos]: any = React.useState(null)
     const [pesquisa, setPesquisa] = React.useState<string>('')
 
+    const navigate = useNavigate()
 
     const url = 'http://localhost:8083/api/get-all/psicologos'
 
@@ -47,7 +51,9 @@ const Psicologo: React.FC = () => {
                 <Box sx={{ width: '100%', flexDirection: 'column' }}>
                     <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
                         <Title>Psicólogos</Title>
-                        <CloseIcon />
+                        <IconButton onClick={() => navigate('/home')}>
+                            <CloseIcon sx={{color: 'black'}} />
+                        </IconButton>
                     </Box>
                     <Box sx={{ margin: '2rem 0' }}>
                         <Input
@@ -89,9 +95,10 @@ const Psicologo: React.FC = () => {
                                     <Text>{item?.nome}</Text>
                                     <Text>{item?.cpf}</Text>
                                     <Text>{item?.telefone}</Text>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', width: '15%' }}>
-                                        <CreateIcon sx={{ marginRight: '2rem' }} />
-                                        <TextSnippetIcon />
+                                    <Box sx={{ display: 'flex', justifyContent: 'center', width: '15%', gap: '1.5rem' }}>
+                                        <IconButton><CreateIcon /></IconButton>
+                                        <IconButton><TextSnippetIcon /></IconButton>
+                                        <IconButton><DeleteIcon /></IconButton>
                                     </Box>
                                 </Box>
                             )

@@ -5,6 +5,8 @@ import Box from '@mui/material/Box'
 import { Title, Subtitle, Text, Label } from './styles'
 import CloseIcon from '@mui/icons-material/Close'
 import Radio from '@mui/material/Radio'
+import { IconButton } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const Cadastro: React.FC = () => {
 
@@ -18,6 +20,8 @@ const Cadastro: React.FC = () => {
     const [bairro, setBairro] = React.useState('')
     const [rua, setRua] = React.useState('')
     const [numero, setNumero] = React.useState('')
+
+    const navigate = useNavigate()
 
 
     const [selectedValue, setSelectedValue] = React.useState('a')
@@ -39,7 +43,9 @@ const Cadastro: React.FC = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', padding: '10rem 15rem 10rem 15rem', width: '100%', height: '80%', overflowY: 'auto' }}>
                 <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
                     <Title>Cadastrar usuário</Title>
-                    <CloseIcon />
+                    <IconButton onClick={() => navigate('/home')}>
+                        <CloseIcon sx={{color: 'black'}} />
+                    </IconButton>
                 </Box>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>

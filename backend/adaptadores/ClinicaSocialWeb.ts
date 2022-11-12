@@ -19,53 +19,65 @@ export class ClinicaSocialWeb {
     this.crud = crudService
   }
 
+  /**
+   * Retorna todas as rotas utilizadas pelo adaptador web.
+   */
   public getRouter() {
     return this.router
   }
-  public getExpress() {
-    return this.express
+
+  private returnAnswer(resposta: any, res: any): void {
+    if (typeof resposta === 'string') {
+      res.send(resposta)
+    } else if (this.checkIfPromise(resposta)) {
+      resposta.then((resposta:any) => {
+        res.send(resposta)
+      })
+    } else {
+      res.send('Resposta inesperada. Favor contatar os administradores.')
+    }
+  }
+
+  private checkIfPromise(resposta: any): boolean {
+    if (
+      typeof resposta === 'object' &&
+      typeof resposta.then === 'function'
+      ) {
+      return true;
+    }
+    return false;
   }
 
   public start() {
     this.router.post('/add/:entity_type', (req: any, res:any) => {
       const data = req.body
       const entity_type = req.params.entity_type;
-      const promessa = this.crud.adicionarEntidade(data, entity_type)
-      promessa.then((resposta:any) => {
-        res.send(resposta)
-      })
+      const resposta = this.crud.adicionarEntidade(data, entity_type)
+      this.returnAnswer(resposta, res)
     })
     this.router.get('/get-all/:entity_type', (req: any, res:any) => {
       const entity_type = req.params.entity_type;
-      const promessa = this.crud.retornarTodasEntidades(entity_type)
-      promessa.then((entidadeusuario:any) => {
-        res.send(entidadeusuario)
-      })
+      const resposta = this.crud.retornarTodasEntidades(entity_type)
+      this.returnAnswer(resposta, res)
     })
     this.router.get('/get-user/:entity_type/:cpf', (req: any, res:any) => {
       const cpf = req.params.cpf
       const entity_type = req.params.entity_type;
-      const promessa = this.crud.retornarEntidadeUsuario(cpf, entity_type)
-      promessa.then((entidades:any) => {
-        res.send(entidades)
-      })
+      const resposta = this.crud.retornarEntidadeUsuario(cpf, entity_type)
+      this.returnAnswer(resposta, res)
     })
     this.router.put('/update/:entity_type/:id', (req: any, res:any) => {
       const id = req.params.id;
       const data = req.body;
       const entity_type = req.params.entity_type;
-      const promessa = this.crud.atualizarEntidade(id, data, entity_type)
-      promessa.then((resposta:any) => {
-        res.send(resposta)
-      })
+      const resposta = this.crud.atualizarEntidade(id, data, entity_type)
+      this.returnAnswer(resposta, res)
     })
     this.router.delete('/delete/:entity_type/:id', (req: any, res:any) => {
       const id = req.params.id;
       const entity_type = req.params.entity_type;
-      const promessa = this.crud.deletarEntidade(id, entity_type)
-      promessa.then((resposta:any) => {
-        res.send(resposta)
-      })
+      const resposta = this.crud.deletarEntidade(id, entity_type)
+      this.returnAnswer(resposta, res)
     })
   }
 }

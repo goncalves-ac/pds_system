@@ -29,6 +29,9 @@ export class CRUDImpl implements CRUD {
     return msgErro
   }
 
+  /**
+   * Funções para validação dos dados presentes nas rotas e requests.
+   */
   private validarTipoDeEntidade(entity_type: string): void {
     if (
       !this.entidadesUsuário.includes(entity_type) &&

@@ -27,7 +27,7 @@ export class RepositorioImpl implements Repositorio {
   public addEntity = async (data: any, entity_type: string) => {
     try {
       await firestore.collection(entity_type).doc().set(data)
-      return 'Entidade do tipo:"' + entity_type + '" adicionada com sucesso.'
+      return '(SUCESSO) Entidade do tipo:"' + entity_type + '" adicionada ao banco de dados.'
     } catch (error) {
       return this.treatError('Erro inesperado: addEntity()')
     }
@@ -194,7 +194,7 @@ export class RepositorioImpl implements Repositorio {
     try {
       const cliente = await firestore.collection(entity_type).doc(id);
       await cliente.update(data);
-      return 'Entidade do tipo:"' + entity_type + '" atualizada com sucesso.'
+      return '(SUCESSO) Entidade do tipo:"' + entity_type + '" atualizada no banco de dados.'
     } catch (error) {
       return this.treatError('Erro inesperado: updateEntity(). Você provavelmente passou na rota um ID não existente.')
     }
@@ -209,7 +209,7 @@ export class RepositorioImpl implements Repositorio {
   public deleteEntity = async (id: any, entity_type: string) => {
     try {
       await firestore.collection(entity_type).doc(id).delete();
-      return 'Entidade do tipo:"' + entity_type + '" deletada com sucesso.'
+      return '(SUCESSO) Entidade do tipo:"' + entity_type + '" deletada do banco de dados.'
     } catch (error) {
       return this.treatError('Erro inesperado: deleteEntity(). Você provavelmente passou na rota um ID não existente.')
     }

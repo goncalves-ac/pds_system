@@ -7,7 +7,6 @@ export class User {
   private cpf: string
   private telefone: string
   private email: string
-
   /**
    * Information that will be stored in the endereco map:
    * - cep
@@ -19,6 +18,17 @@ export class User {
    * - complemento
    */
   private endereco: Map<string, string>
+
+  constructor(
+    id: string, nome: string, cpf: string, telefone: string, email: string, endereco: Map<string, string>
+  ) {
+    this.id = id
+    this.nome = nome
+    this.cpf = cpf
+    this.telefone = telefone
+    this.email = email
+    this.endereco = endereco
+  }
 
   /**
    * Getters
@@ -45,33 +55,19 @@ export class User {
   /**
    * Setters
    */
-  protected setId(id: string): void {
-    this.id = id
-  }
-  setName(nome: string): void {
+  protected setName(nome: string): void {
     this.nome = nome
   }
-  setCPF(cpf: string): void {
+  protected setCPF(cpf: string): void {
     this.cpf = cpf
   }
-  setPhone(telefone: string): void {
+  protected setPhone(telefone: string): void {
     this.telefone = telefone
   }
-  setEmail(email: string): void {
+  protected setEmail(email: string): void {
     this.email = email
   }
-  setAddress(endereco: Map<string, string>): void {
-    this.endereco = endereco
-  }
-
-  constructor(
-    id: string, nome: string, cpf: string, telefone: string, email: string, endereco: Map<string, string>
-  ) {
-    this.id = id
-    this.nome = nome
-    this.cpf = cpf
-    this.telefone = telefone
-    this.email = email
+  protected setAddress(endereco: Map<string, string>): void {
     this.endereco = endereco
   }
 }

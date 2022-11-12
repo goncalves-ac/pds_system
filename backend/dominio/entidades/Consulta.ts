@@ -1,27 +1,27 @@
 import { UnidadeOrganizacional } from "../super-classes/UnidadeOrganizacional"
 
-export class Prontuario extends UnidadeOrganizacional {
-  private parecer: string
+export class Consulta extends UnidadeOrganizacional {
+  private hora: string
 
   /**
    * Getters
    */
-  public getParecer(): string {
-    return this.parecer
+   public getHora(): string {
+    return this.hora
   }
 
   /**
    * Setters
    */
-  protected setParecer(parecer: string): void {
-    this.parecer = parecer
+  protected setHora(hora: string): void {
+    this.hora = hora
   }
 
   constructor(
     id: string, nomeCliente: string, nomePsicologo: string, dia: string, mes: string, ano:string,
-    parecer: string
+    hora: string
   ) {
     super(id, nomeCliente, nomePsicologo, dia, mes, ano)
-    this.parecer = parecer
+    this.hora = hora
   }
 }

@@ -4,6 +4,7 @@ import { Secretaria } from '../dominio/entidades/Secretaria'
 import { Psicologo } from '../dominio/entidades/Psicologo'
 import { Prontuario } from '../dominio/entidades/Prontuario'
 import { Repositorio } from '../dominio/portas/Repositorio'
+import { Consulta } from '../dominio/entidades/Consulta'
 
 const firestore = db.firestore()
 
@@ -11,6 +12,12 @@ const firestore = db.firestore()
  * Adaptador para o Banco de Dados
  */
 export class RepositorioImpl implements Repositorio {
+
+  private treatError(errorMessage: string): string {
+    console.log(errorMessage)
+    return errorMessage
+  }
+
   /**
    * Adiciona um cliente à base de dados.
    *
@@ -22,8 +29,7 @@ export class RepositorioImpl implements Repositorio {
       await firestore.collection(entity_type).doc().set(data)
       return 'Entidade do tipo:"' + entity_type + '" adicionada com sucesso.'
     } catch (error) {
-      console.log('Erro inesperado: addEntity()')
-      return 'Erro inesperado: addEntity()'
+      return this.treatError('Erro inesperado: addEntity()')
     }
   }
 
@@ -82,16 +88,33 @@ export class RepositorioImpl implements Repositorio {
       } else if (entity_type === 'prontuarios') {
         data.forEach((doc: any) => {
           const prontuario = new Prontuario(
-            doc.data().date,
-            doc.data().time,
-            doc.data().parecer,
+            doc.id,
+            doc.data().nomeCliente,
+            doc.data().nomePsicologo,
+            doc.data().dia,
+            doc.data().mes,
+            doc.data().ano,
+            doc.data().parecer
           )
           entities.push(prontuario)
+        })
+      } else if (entity_type === 'consultas') {
+        data.forEach(doc => {
+          const consulta = new Consulta(
+            doc.id,
+            doc.data().nomeCliente,
+            doc.data().nomePsicologo,
+            doc.data().dia,
+            doc.data().mes,
+            doc.data().ano,
+            doc.data().hora
+          )
+          entities.push(consulta)
         })
       }
       return entities
     } catch (error) {
-      console.log('Erro inesperado: getAllEntities()')
+      return this.treatError('Erro inesperado: getAllEntities()')
     }
   }
 
@@ -106,7 +129,7 @@ export class RepositorioImpl implements Repositorio {
       const entityRef = await firestore.collection(entity_type)
       const snapshot = await entityRef.where('cpf', '==', cpf).get()
       if (snapshot.empty) {
-        console.log('Não foi encontrado uma entidade do tipo:"' + entity_type + '" com esse CPF.')
+        return this.treatError('Não foi encontrado uma entidade do tipo:"' + entity_type + '" com esse CPF.')
       } else {
         let docData: any = []
 
@@ -156,7 +179,7 @@ export class RepositorioImpl implements Repositorio {
       }
     }
     catch (error) {
-      console.log('Erro inesperado: getUserEntity()')
+      return this.treatError('Erro inesperado: getUserEntity()')
     }
   }
 
@@ -173,8 +196,7 @@ export class RepositorioImpl implements Repositorio {
       await cliente.update(data);
       return 'Entidade do tipo:"' + entity_type + '" atualizada com sucesso.'
     } catch (error) {
-      console.log('Erro inesperado: updateEntity()')
-      return 'Erro inesperado: updateEntity()'
+      return this.treatError('Erro inesperado: updateEntity(). Você provavelmente passou na rota um ID não existente.')
     }
   }
 
@@ -189,8 +211,7 @@ export class RepositorioImpl implements Repositorio {
       await firestore.collection(entity_type).doc(id).delete();
       return 'Entidade do tipo:"' + entity_type + '" deletada com sucesso.'
     } catch (error) {
-      console.log('Erro inesperado: deleteEntity()')
-      return 'Erro inesperado: deleteEntity()'
+      return this.treatError('Erro inesperado: deleteEntity(). Você provavelmente passou na rota um ID não existente.')
     }
   }
 }

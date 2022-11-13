@@ -1,3 +1,6 @@
+/**
+ * Super classe base para unidades de valor.
+ */
 export class UnidadeOrganizacional {
   private id: string
   private nomeCliente: string

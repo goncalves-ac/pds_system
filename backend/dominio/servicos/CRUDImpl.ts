@@ -7,7 +7,7 @@ import { Repositorio } from "../portas/Repositorio";
 export class CRUDImpl implements CRUD {
   private repo: Repositorio
   private entidadesUsuário: string[]
-  private entidadesOrganizacionais: string[]
+  private objetosDeValor: string[]
   private camposCliente: string[]
   private camposPsicologo: string[]
   private camposSecretaria: string[]
@@ -17,10 +17,10 @@ export class CRUDImpl implements CRUD {
   // Todo: refatorar as declarações de campos e entidades para validação
   constructor(repo: Repositorio) {
     this.repo = repo
-    // Declaração dos nomes válidos para cada coleção de documento/tipos de entidade
+    // Declaração dos nomes válidos para cada coleção de documento/tipos de entidade ou objeto
     this.entidadesUsuário = ['clientes', 'psicologos', 'secretarias']
-    this.entidadesOrganizacionais = ['consultas', 'prontuarios']
-    // Declaração dos campos válidos para cada tipo de entidade
+    this.objetosDeValor = ['consultas', 'prontuarios']
+    // Declaração dos campos válidos para cada tipo de entidade ou objeto
     this.camposCliente = ['nome', 'cpf', 'telefone', 'email', 'endereco']
     this.camposPsicologo = ['nome', 'cpf', 'telefone', 'email', 'endereco', 'crp', 'workDays', 'especialidade']
     this.camposSecretaria = ['nome', 'cpf', 'telefone', 'email', 'endereco', 'workDays', 'workHours']
@@ -48,7 +48,7 @@ export class CRUDImpl implements CRUD {
   private validarTipoDeEntidade(entity_type: string): void {
     if (
       !this.entidadesUsuário.includes(entity_type) &&
-      !this.entidadesOrganizacionais.includes(entity_type)
+      !this.objetosDeValor.includes(entity_type)
       ) {
         throw new Error('O tipo de entidade "' + entity_type + '" não existe. Favor passar na rota um tipo válido.');
     }
@@ -130,11 +130,11 @@ export class CRUDImpl implements CRUD {
   /**
    * Funções delimitadas pela interface.
    */
-  public adicionarEntidade(data: any, entity_type: string): any {
+  public adicionarObjeto(data: any, entity_type: string): any {
     try {
       this.validarTipoDeEntidade(entity_type)
       this.validarCamposDeEntidade(entity_type, data)
-      return this.repo.addEntity(data, entity_type)
+      return this.repo.addObject(data, entity_type)
     } catch (error) {
       return this.tratarErro(error)
     }
@@ -149,29 +149,29 @@ export class CRUDImpl implements CRUD {
     }
   }
 
-  public retornarTodasEntidades(entity_type: string) {
+  public retornarTodosObjetos(entity_type: string) {
     try {
       this.validarTipoDeEntidade(entity_type)
-      return this.repo.getAllEntities(entity_type)
+      return this.repo.getAllObjects(entity_type)
     } catch (error) {
       return this.tratarErro(error)
     }
   }
 
-  public atualizarEntidade(id: string, data: any, entity_type: string) {
+  public atualizarObjeto(id: string, data: any, entity_type: string) {
     try {
       this.validarTipoDeEntidade(entity_type)
       this.validarCamposDeEntidade(entity_type, data)
-      return this.repo.updateEntity(id, data, entity_type)
+      return this.repo.updateObject(id, data, entity_type)
     } catch (error) {
       return this.tratarErro(error)
     }
   }
 
-  public deletarEntidade(id: string, entity_type: string) {
+  public deletarObjeto(id: string, entity_type: string) {
     try {
       this.validarTipoDeEntidade(entity_type)
-      return this.repo.deleteEntity(id, entity_type)
+      return this.repo.deleteObject(id, entity_type)
     } catch (error) {
       return this.tratarErro(error)
     }

@@ -12,6 +12,62 @@
 - Leandro Marques Venceslau de Souza - desenvolvedor back-end;
 - Leonardo Almeida Brito - desenvolvedor front-end;
 
+## **Arquitetura**
+
+<p align="center" width="100%">
+  <img src="./public/Arquitetura Hexagonal com aspectos DDD.jpg">
+</p>
+
+### **Modelo Arquitetural:**
+O Back-end é estruturado dentro da lógica de uma arquitetura hexagonal que faz uso de conceitos de design de software estabelecidos pelo Domain Driven Design (DDD). Como principais motivos para adoção desse modelo estão:
+- Clara distinção entre a camada própria do sistema (domínio) e tecnologias externas.
+- Menor acoplamento com serviços externos ao que é definido como domínio do sistema. Isso facilita a troca de bibliotecas, frameworks, bancos de dados, etc.
+- Foco no domínio: permite aos desenvolvedores se concentrarem naquilo que de fato norteia a geração de valor do sistema - seu propósito.
+- Testabilidade: a tarefa de se planejar e implementar testes numa lógica de aplicação sem dependências externas é mais simples. Permite, por exemplo, a realização de testes isolados sem interferências de camadas externas ao domínio.
+
+Dentre os conceitos definidos pelo DDD utilizamos:
+- **Entidades:** Objeto com identidade única que o distingue dos demais objetos da mesma classe. Teremos a super classe User, com identificador único CPF. Essa super classe é estendida por três outros tipos de entidade usuário:
+  - Clientes
+  - Psicologos
+  - Secretarias
+- **Objetos de Valor:** Objetos sem identificador único, as quais são caracterizadas apenas pelos valores de seus atributos. Teremos a super classe UnidadeOrganizacional, a qual é estendida por duas outras classes:
+  - Consultas
+  - Prontuarios
+- **Serviços:** Objetos focados na implementação de funcionalidades do sistema. Serviços serão singletons, ou seja, terão apenas uma única instância durante a execução do sistema. Eles serão declarados no arquivo "root" do back-end: index.ts, e serão repassados como parâmetros para a construção do adaptador Web do projeto - ClinicaSocialWeb.
+- **Repositório:** Objeto que abstrai a interação com o banco de dados. Usado principalmente para recuperar outros objetos de domínio persistidos na solução de BD do sistema. Haverá apenas um repositório para todo o sistema, o qual será implementado no adaptador para Banco de Dados - class RepositorioImpl.
+
+### **Banco de Dados:**
+Firestore Cloud Service - um banco de dados de documentos totalmente gerenciado, escalável e serverless. Consideramos essa uma boa opção neste caso principalmente devido à transferência da responsabilidade operacional da empresa para a fornecedora do serviço Cloud, a qual irá manter e gerenciar a infraestrutura necessária pela contrapatrida do pagamento de taxas pelo uso de seus recursos. Como consequência temos uma redução de custos iniciais de infra-estrutura e recursos humanos, importante para um sistema de menor escopo e com recursos limitados como este.
+
+### **Principal serviço entregue pelo Back-end:**
+Como o Firestore é um banco de dados de documentos NoSQL, ela não estabelece esquemas para os dados que serão persistidos. Isso implica que documentos de uma mesma coleção (agregado de documentos) podem ter diferentes campos com diferentes tipos. No intuito de assegurar padronização dos dados sendo enviados para o banco de dados, validações são efetivadas dentro da classe de serviço CRUDImpl de forma a impedir que estruturas de dados que fogem às entidades estabelecidas no domínio sejam persistidas no banco de dados.
+
+### **Adaptadores:**
+Adaptador Web - **class ClinicaSocialWeb**. Tem como objetivos:
+- Estabelecer rotas
+- Extrair dados de requests
+- Chamar métodos das portas de entrada
+- Retornar as respostas adequadas ao Front-end.
+
+Adaptador para o Banco de Dados - **class RepositorioImpl**. Tem como objetivos:
+- Estabelecer conexão com o banco de dados
+- Realizar operações de get; update; delete de objetos definidos nas classes de domínio e persistidas como documentos na Cloud Firestore.
+
+### **Portas:**
+Porta de entrada - **interface Crud**. Tem como objetivo:
+- Declarar parte dos serviços disponibilizados pelo sistema.
+- Ditar as possíveis interações entre o adaptador web e o domínio da aplicação.
+
+Porta de saída - **interface Repositorio**. Tem como objetivo:
+- Declarar todos os serviços requeridos pelo sistema.
+- Ditar as possíveis interações entre o adaptador para o banco de dados e o domínio da aplicação.
+
+### **Exemplo de fluxo de execução:**
+
+<p align="center" width="100%">
+  <img src="./public/Diagramas de Sequência.jpg">
+</p>
+
 ## **Funcional (objetivo do sistema, principais features, etc)**:
 
 **Contexto:**

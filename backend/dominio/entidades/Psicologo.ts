@@ -1,5 +1,5 @@
 import { User } from '../super-classes/User'
-import { Prontuario } from './Prontuario'
+import { Prontuario } from '../objetos-de-valor/Prontuario'
 import { Cliente } from './Cliente'
 
 export class Psicologo extends User {

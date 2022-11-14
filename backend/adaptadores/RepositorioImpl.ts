@@ -44,13 +44,8 @@ export class RepositorioImpl implements Repositorio {
       const data = await collection.get()
       const entities: any[] = []
 
-<<<<<<< HEAD
-      if (entity_type === 'clientes') {
-        data.forEach((doc: any) => {
-=======
       if (object_type === 'clientes') {
-        data.forEach(doc => {
->>>>>>> back-end-dev
+        data.forEach((doc: any) => {
           const cliente = new Cliente(
             doc.id,
             doc.data().nome,
@@ -61,13 +56,8 @@ export class RepositorioImpl implements Repositorio {
           )
           entities.push(cliente)
         })
-<<<<<<< HEAD
-      } else if (entity_type === 'secretarias') {
-        data.forEach((doc: any) => {
-=======
       } else if (object_type === 'secretarias') {
-        data.forEach(doc => {
->>>>>>> back-end-dev
+        data.forEach((doc: any) => {
           const secretaria = new Secretaria(
             doc.id,
             doc.data().nome,
@@ -80,13 +70,8 @@ export class RepositorioImpl implements Repositorio {
           )
           entities.push(secretaria)
         })
-<<<<<<< HEAD
-      } else if (entity_type === 'psicologos') {
-        data.forEach((doc: any) => {
-=======
       } else if (object_type === 'psicologos') {
-        data.forEach(doc => {
->>>>>>> back-end-dev
+        data.forEach((doc: any) => {
           const psicologo = new Psicologo(
             doc.id,
             doc.data().nome,
@@ -100,13 +85,8 @@ export class RepositorioImpl implements Repositorio {
           )
           entities.push(psicologo)
         })
-<<<<<<< HEAD
-      } else if (entity_type === 'prontuarios') {
-        data.forEach((doc: any) => {
-=======
       } else if (object_type === 'prontuarios') {
-        data.forEach(doc => {
->>>>>>> back-end-dev
+        data.forEach((doc: any) => {
           const prontuario = new Prontuario(
             doc.id,
             doc.data().nomeCliente,
@@ -119,7 +99,7 @@ export class RepositorioImpl implements Repositorio {
           entities.push(prontuario)
         })
       } else if (object_type === 'consultas') {
-        data.forEach(doc => {
+        data.forEach((doc: any) => {
           const consulta = new Consulta(
             doc.id,
             doc.data().nomeCliente,

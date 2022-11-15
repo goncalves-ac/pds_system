@@ -49,15 +49,15 @@ export class ClinicaSocialWeb {
   }
 
   public start() {
-    this.router.post('/add/:entity_type', (req: any, res:any) => {
+    this.router.post('/add/:object_type', (req: any, res:any) => {
       const data = req.body
-      const entity_type = req.params.entity_type;
-      const resposta = this.crud.adicionarEntidade(data, entity_type)
+      const object_type = req.params.object_type;
+      const resposta = this.crud.adicionarObjeto(data, object_type)
       this.returnAnswer(resposta, res)
     })
-    this.router.get('/get-all/:entity_type', (req: any, res:any) => {
-      const entity_type = req.params.entity_type;
-      const resposta = this.crud.retornarTodasEntidades(entity_type)
+    this.router.get('/get-all/:object_type', (req: any, res:any) => {
+      const object_type = req.params.object_type;
+      const resposta = this.crud.retornarTodosObjetos(object_type)
       this.returnAnswer(resposta, res)
     })
     this.router.get('/get-user/:entity_type/:cpf', (req: any, res:any) => {
@@ -66,17 +66,17 @@ export class ClinicaSocialWeb {
       const resposta = this.crud.retornarEntidadeUsuario(cpf, entity_type)
       this.returnAnswer(resposta, res)
     })
-    this.router.put('/update/:entity_type/:id', (req: any, res:any) => {
+    this.router.put('/update/:object_type/:id', (req: any, res:any) => {
       const id = req.params.id;
       const data = req.body;
-      const entity_type = req.params.entity_type;
-      const resposta = this.crud.atualizarEntidade(id, data, entity_type)
+      const object_type = req.params.object_type;
+      const resposta = this.crud.atualizarObjeto(id, data, object_type)
       this.returnAnswer(resposta, res)
     })
-    this.router.delete('/delete/:entity_type/:id', (req: any, res:any) => {
+    this.router.delete('/delete/:object_type/:id', (req: any, res:any) => {
       const id = req.params.id;
-      const entity_type = req.params.entity_type;
-      const resposta = this.crud.deletarEntidade(id, entity_type)
+      const object_type = req.params.object_type;
+      const resposta = this.crud.deletarObjeto(id, object_type)
       this.returnAnswer(resposta, res)
     })
   }

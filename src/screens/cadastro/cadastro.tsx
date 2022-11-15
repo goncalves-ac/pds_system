@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from '../../layout'
-import { AppBar, Input, Menu, UsuarioList } from '../../components'
+import { AppBar, Input, Menu } from '../../components'
 import Box from '@mui/material/Box'
 import { Title, Subtitle, Text, Label } from './styles'
 import CloseIcon from '@mui/icons-material/Close'
@@ -63,7 +63,7 @@ const Cadastro: React.FC = () => {
         setTipoUsuario(event.target.value)
     }
 
-    const url = `http://localhost:8083/api//add/${tipoUsuario}`
+    const url = `http://localhost:8083/api/add/${tipoUsuario}`
 
     const submitCadastro = () => {
 

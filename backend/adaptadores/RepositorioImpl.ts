@@ -2,9 +2,9 @@ import { db } from '../db'
 import { Cliente } from '../dominio/entidades/Cliente'
 import { Secretaria } from '../dominio/entidades/Secretaria'
 import { Psicologo } from '../dominio/entidades/Psicologo'
-import { Prontuario } from '../dominio/entidades/Prontuario'
+import { Prontuario } from '../dominio/objetos-de-valor/Prontuario'
 import { Repositorio } from '../dominio/portas/Repositorio'
-import { Consulta } from '../dominio/entidades/Consulta'
+import { Consulta } from '../dominio/objetos-de-valor/Consulta'
 
 const firestore = db.firestore()
 
@@ -22,29 +22,29 @@ export class RepositorioImpl implements Repositorio {
    * Adiciona um cliente à base de dados.
    *
    * @param data Dados em formato json
-   * @param entity_type String que representa o tipo de entidade a ser adicionada.
+   * @param object_type String que representa o tipo de objeto a ser adicionado.
    */
-  public addEntity = async (data: any, entity_type: string) => {
+  public addObject = async (data: any, object_type: string) => {
     try {
-      await firestore.collection(entity_type).doc().set(data)
-      return 'Entidade do tipo:"' + entity_type + '" adicionada com sucesso.'
+      await firestore.collection(object_type).doc().set(data)
+      return '(SUCESSO) Objeto do tipo:"' + object_type + '" adicionada ao banco de dados.'
     } catch (error) {
-      return this.treatError('Erro inesperado: addEntity()')
+      return this.treatError('Erro inesperado: addObject()')
     }
   }
 
   /**
    * Retorna todos os clientes presentes na database.
    *
-   * @param entity_type String que representa o tipo de entidade a ser recuperada.
+   * @param object_type String que representa o tipo de objeto a ser recuperada.
    */
-  public getAllEntities = async (entity_type: string) => {
+  public getAllObjects = async (object_type: string) => {
     try {
-      const collection = await firestore.collection(entity_type)
+      const collection = await firestore.collection(object_type)
       const data = await collection.get()
       const entities: any[] = []
 
-      if (entity_type === 'clientes') {
+      if (object_type === 'clientes') {
         data.forEach((doc: any) => {
           const cliente = new Cliente(
             doc.id,
@@ -56,7 +56,7 @@ export class RepositorioImpl implements Repositorio {
           )
           entities.push(cliente)
         })
-      } else if (entity_type === 'secretarias') {
+      } else if (object_type === 'secretarias') {
         data.forEach((doc: any) => {
           const secretaria = new Secretaria(
             doc.id,
@@ -70,7 +70,7 @@ export class RepositorioImpl implements Repositorio {
           )
           entities.push(secretaria)
         })
-      } else if (entity_type === 'psicologos') {
+      } else if (object_type === 'psicologos') {
         data.forEach((doc: any) => {
           const psicologo = new Psicologo(
             doc.id,
@@ -85,7 +85,7 @@ export class RepositorioImpl implements Repositorio {
           )
           entities.push(psicologo)
         })
-      } else if (entity_type === 'prontuarios') {
+      } else if (object_type === 'prontuarios') {
         data.forEach((doc: any) => {
           const prontuario = new Prontuario(
             doc.id,
@@ -98,8 +98,8 @@ export class RepositorioImpl implements Repositorio {
           )
           entities.push(prontuario)
         })
-      } else if (entity_type === 'consultas') {
-        data.forEach(doc => {
+      } else if (object_type === 'consultas') {
+        data.forEach((doc: any) => {
           const consulta = new Consulta(
             doc.id,
             doc.data().nomeCliente,
@@ -114,7 +114,7 @@ export class RepositorioImpl implements Repositorio {
       }
       return entities
     } catch (error) {
-      return this.treatError('Erro inesperado: getAllEntities()')
+      return this.treatError('Erro inesperado: getAllObjects()')
     }
   }
 
@@ -184,34 +184,34 @@ export class RepositorioImpl implements Repositorio {
   }
 
   /**
-   * Atualiza os dados de um entidade presente na base de dados.
+   * Atualiza os dados de um objeto presente na base de dados.
    *
-   * @param id String que representa o identifacor único da entidade no banco de dados.
+   * @param id String que representa o identifacor único do documento no banco de dados.
    * @param data Dados em formato json.
-   * @param entity_type String que representa o tipo de entidade a ser atualizada.
+   * @param object_type String que representa o tipo de objeto a ser atualizada.
    */
-  public updateEntity = async (id: any, data: any, entity_type: string) => {
+  public updateObject = async (id: any, data: any, object_type: string) => {
     try {
-      const cliente = await firestore.collection(entity_type).doc(id);
+      const cliente = await firestore.collection(object_type).doc(id);
       await cliente.update(data);
-      return 'Entidade do tipo:"' + entity_type + '" atualizada com sucesso.'
+      return '(SUCESSO) Objeto do tipo:"' + object_type + '" atualizada no banco de dados.'
     } catch (error) {
-      return this.treatError('Erro inesperado: updateEntity(). Você provavelmente passou na rota um ID não existente.')
+      return this.treatError('Erro inesperado: updateObject(). Você provavelmente passou na rota um ID não existente.')
     }
   }
 
   /**
-   * Deleta uma entidade presente na database.
+   * Deleta um documento/objeto persistido na database.
    *
-   * @param id String que representa o identifacor único da entidade no banco de dados.
-   * @param entity_type String que representa o tipo de entidade a ser deletada.
+   * @param id String que representa o identificador único do objeto no banco de dados.
+   * @param object_type String que representa o tipo de objeto a ser deletado.
    */
-  public deleteEntity = async (id: any, entity_type: string) => {
+  public deleteObject = async (id: any, object_type: string) => {
     try {
-      await firestore.collection(entity_type).doc(id).delete();
-      return 'Entidade do tipo:"' + entity_type + '" deletada com sucesso.'
+      await firestore.collection(object_type).doc(id).delete();
+      return '(SUCESSO) Objeto do tipo:"' + object_type + '" deletada do banco de dados.'
     } catch (error) {
-      return this.treatError('Erro inesperado: deleteEntity(). Você provavelmente passou na rota um ID não existente.')
+      return this.treatError('Erro inesperado: deleteObject(). Você provavelmente passou na rota um ID não existente.')
     }
   }
 }

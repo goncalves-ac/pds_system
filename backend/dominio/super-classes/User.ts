@@ -1,5 +1,5 @@
 /**
- * Superclasse base para entidades.
+ * Super classe base para entidades.
  */
 export class User {
   private id: string

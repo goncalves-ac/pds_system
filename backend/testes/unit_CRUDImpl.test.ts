@@ -8,7 +8,7 @@ import { CRUDImpl } from "../dominio/servicos/CRUDImpl";
 
 const repo = new RepositorioImpl()
 const crud = new CRUDImpl(repo)
-const testStartString = '[class CRUDImpl '
+const testStartString = '[Serviço] [CRUDImpl] '
 
 test(testStartString + 'validarCategoriaDeObjeto(object_type: string): void', async () => {
   expect(() => {

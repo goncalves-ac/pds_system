@@ -58,6 +58,9 @@ const setup = async() => {
   ).toBe('(SUCESSO) Objeto do tipo:"' + object_type + '" adicionada ao banco de dados.')
 }
 
+/**
+ * Integration Tests
+ */
 test(testStartString + 'adicionarObjeto(data: any, object_type: string): any', async () => {
   await setup()
   await tearDown()
@@ -123,6 +126,21 @@ test(testStartString + 'atualizarObjeto(id: string, data: any, entity_type: stri
   await tearDown()
 })
 
-
-
-
+test(testStartString + 'adicionarObjeto(data: any, object_type: string): any', async () => {
+  let collection = await crud.retornarTodosObjetos('secretarias')
+  expect(
+    typeof(collection)
+  ).toBe('object')
+  collection = await crud.retornarTodosObjetos('psicologos')
+  expect(
+    typeof(collection)
+  ).toBe('object')
+  collection = await crud.retornarTodosObjetos('consultas')
+  expect(
+    typeof(collection)
+  ).toBe('object')
+  collection = await crud.retornarTodosObjetos('prontuarios')
+  expect(
+    typeof(collection)
+  ).toBe('object')
+})

@@ -6,9 +6,12 @@ import { CRUDImpl } from "../dominio/servicos/CRUDImpl";
  * Este arquivo define testes de unidade para o serviço CRUDImpl.
  */
 
+/**
+ * Setup Variables
+ */
 const repo = new RepositorioImpl()
 const crud = new CRUDImpl(repo)
-const testStartString = '[Serviço] [CRUDImpl] '
+const testStartString = '[Unit-Tests] [Serviço] [CRUDImpl] '
 
 test(testStartString + 'validarCategoriaDeObjeto(object_type: string): void', async () => {
   expect(() => {
@@ -16,6 +19,9 @@ test(testStartString + 'validarCategoriaDeObjeto(object_type: string): void', as
   }).toThrow()
 })
 
+/**
+ * Unit Tests
+ */
 test(testStartString + 'validarChave(object_type: string, chave: string): void', async () => {
   expect(() => {
     crud.validarChave('clientes', 'campo_invalido')

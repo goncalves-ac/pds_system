@@ -147,10 +147,10 @@ export class CRUDImpl implements CRUD {
     }
   }
 
-  public retornarTodosObjetos(entity_type: string) {
+  public retornarTodosObjetos(object_type: string) {
     try {
-      this.validarCategoriaDeObjeto(entity_type)
-      return this.repo.getAllObjects(entity_type)
+      this.validarCategoriaDeObjeto(object_type)
+      return this.repo.getAllObjects(object_type)
     } catch (error) {
       return this.tratarErro(error)
     }

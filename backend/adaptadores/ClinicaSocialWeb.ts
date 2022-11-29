@@ -22,10 +22,12 @@ export class ClinicaSocialWeb {
   /**
    * Retorna todas as rotas utilizadas pelo adaptador web.
    */
+  /* istanbul ignore next */
   public getRouter() {
     return this.router
   }
 
+  /* istanbul ignore next */
   private returnAnswer(resposta: any, res: any): void {
     if (typeof resposta === 'string') {
       res.send(resposta)
@@ -38,7 +40,7 @@ export class ClinicaSocialWeb {
     }
   }
 
-  private checkIfPromise(resposta: any): boolean {
+  public checkIfPromise(resposta: any): boolean {
     if (
       typeof resposta === 'object' &&
       typeof resposta.then === 'function'
@@ -48,6 +50,7 @@ export class ClinicaSocialWeb {
     return false;
   }
 
+  /* istanbul ignore next */
   public start() {
     this.router.post('/add/:object_type', (req: any, res:any) => {
       const data = req.body

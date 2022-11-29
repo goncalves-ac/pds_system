@@ -4,13 +4,13 @@
 
 // Todo: pensar em remover id de usuários também.
 export class User {
-  private id: string
+  private id: any
   private nome: string
   private cpf: string
   private telefone: string
   private email: string
   /**
-   * Information that will be stored in the endereco map:
+   * Information that will be stored in the address:
    * - cep
    * - estado
    * - cidade
@@ -19,10 +19,10 @@ export class User {
    * - numero
    * - complemento
    */
-  private endereco: Map<string, string>
+  private endereco: any
 
   constructor(
-    id: string, nome: string, cpf: string, telefone: string, email: string, endereco: Map<string, string>
+    id: any, nome: string, cpf: string, telefone: string, email: string, endereco: any
   ) {
     this.id = id
     this.nome = nome

@@ -166,10 +166,10 @@ export class CRUDImpl implements CRUD {
     }
   }
 
-  public deletarObjeto(id: string, entity_type: string) {
+  public deletarObjeto(id: string, object_type: string) {
     try {
-      this.validarCategoriaDeObjeto(entity_type)
-      return this.repo.deleteObject(id, entity_type)
+      this.validarCategoriaDeObjeto(object_type)
+      return this.repo.deleteObject(id, object_type)
     } catch (error) {
       return this.tratarErro(error)
     }

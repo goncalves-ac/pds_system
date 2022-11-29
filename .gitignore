@@ -2,6 +2,7 @@
 
 # dependencies
 backend/dist
+backend/coverage
 node_modules
 /.pnp
 .pnp.js

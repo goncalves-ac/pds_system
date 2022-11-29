@@ -1,6 +1,8 @@
 /**
  * Super classe base para entidades.
  */
+
+// Todo: pensar em remover id de usuários também.
 export class User {
   private id: string
   private nome: string

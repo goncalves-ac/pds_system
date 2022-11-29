@@ -13,6 +13,12 @@ const firestore = db.firestore()
  */
 export class RepositorioImpl implements Repositorio {
 
+  private deleteErrorMessage = 'Erro inesperado: deleteObject(). Você provavelmente passou na rota um ID não existente.'
+
+  public getDeleteErrorMessage() {
+    return this.deleteErrorMessage
+  }
+
   private treatError(errorMessage: string): string {
     console.log(errorMessage)
     return errorMessage
@@ -211,7 +217,7 @@ export class RepositorioImpl implements Repositorio {
       await firestore.collection(object_type).doc(id).delete();
       return '(SUCESSO) Objeto do tipo:"' + object_type + '" deletada do banco de dados.'
     } catch (error) {
-      return this.treatError('Erro inesperado: deleteObject(). Você provavelmente passou na rota um ID não existente.')
+      return this.treatError(this.deleteErrorMessage)
     }
   }
 }

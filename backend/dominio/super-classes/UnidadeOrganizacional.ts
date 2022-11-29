@@ -1,6 +1,8 @@
 /**
  * Super classe base para unidades de valor.
  */
+
+// Todo: remover id de unidade organizacional. Não faz sentido.
 export class UnidadeOrganizacional {
   private id: string
   private nomeCliente: string

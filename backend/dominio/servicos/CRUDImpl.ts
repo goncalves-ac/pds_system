@@ -45,96 +45,94 @@ export class CRUDImpl implements CRUD {
   /**
    * Funções para validação dos dados presentes nas rotas e requests.
    */
-  private validarTipoDeEntidade(entity_type: string): void {
+  public validarCategoriaDeObjeto(object_type: string): void {
     if (
-      !this.entidadesUsuário.includes(entity_type) &&
-      !this.objetosDeValor.includes(entity_type)
+      !this.entidadesUsuário.includes(object_type) &&
+      !this.objetosDeValor.includes(object_type)
       ) {
-        throw new Error('O tipo de entidade "' + entity_type + '" não existe. Favor passar na rota um tipo válido.');
+        throw new Error('A categoria de objeto "' + object_type + '" não existe. Favor passar na rota um tipo válido.');
     }
   }
-  private validarCamposDeEntidade(entity_type: string, dataObject: any): void {
-    let quantidadeDeCampos = 0;
-    Object.entries(dataObject).forEach(([chave, valor]) => {
-      this.validarChave(entity_type, chave)
-      this.validarTipos(entity_type, chave, valor)
-      quantidadeDeCampos++
-    })
-    this.validarQuantidadeDeCampos(entity_type, quantidadeDeCampos)
-  }
-  private validarChave(entity_type: string, chave: string): void {
-    const mensagemDeErro = 'Entidade do tipo:"' + entity_type + '" não possui campo com nome:"' + chave + '"'
 
-    if (entity_type === 'clientes' && !this.camposCliente.includes(chave)) {
+  public validarCamposDeObjeto(object_type: string, dataObject: any): void {
+    let quantidadeDeCamposEncontrados = 0;
+    Object.entries(dataObject).forEach(([chave, valor]) => {
+      this.validarChave(object_type, chave)
+      this.validarTipos(object_type, chave, valor)
+      quantidadeDeCamposEncontrados++
+    })
+    this.validarQuantidadeDeCampos(object_type, quantidadeDeCamposEncontrados)
+  }
+
+  public validarChave(object_type: string, chave: string): void {
+    const mensagemDeErro = 'Objeto de categoria:"' + object_type + '" não possui campo com nome:"' + chave + '"'
+
+    if (object_type === 'clientes' && !this.camposCliente.includes(chave)) {
       throw new Error(mensagemDeErro);
     }
-    if (entity_type === 'psicologos' && !this.camposPsicologo.includes(chave)) {
+    if (object_type === 'psicologos' && !this.camposPsicologo.includes(chave)) {
       throw new Error(mensagemDeErro);
     }
-    if (entity_type === 'secretarias' && !this.camposSecretaria.includes(chave)) {
+    if (object_type === 'secretarias' && !this.camposSecretaria.includes(chave)) {
       throw new Error(mensagemDeErro);
     }
-    if (entity_type === 'consultas' && !this.camposConsulta.includes(chave)) {
+    if (object_type === 'consultas' && !this.camposConsulta.includes(chave)) {
       throw new Error(mensagemDeErro);
     }
-    if (entity_type === 'prontuarios' && !this.camposProntuario.includes(chave)) {
+    if (object_type === 'prontuarios' && !this.camposProntuario.includes(chave)) {
       throw new Error(mensagemDeErro);
     }
   }
-  private validarTipos(entity_type: string, chave:string, valor: any): void {
+
+  public validarTipos(object_type: string, chave:string, valor: any): void {
     if (chave === 'endereco') {
       if (!(typeof valor === 'object')) {
-        throw new Error('Entidade:"' + entity_type + '" deve ter campo:"' + chave + '" como tipo object e não "' + typeof valor + '"');
+        throw new Error('Objeto:"' + object_type + '" deve ter campo:"' + chave + '" como tipo object e não "' + typeof valor + '"');
       }
       // Todo: Endereços são objetos. Logo faz sentido checar também os tipos de seus valores internos.
       return
     }
     if (!(typeof valor === 'string')) {
-      throw new Error('Entidade:"' + entity_type + '" deve ter campo:"' + chave + '" como tipo string e não "' + typeof valor + '"');
+      throw new Error('Objeto:"' + object_type + '" deve ter campo:"' + chave + '" como tipo string e não "' + typeof valor + '"');
     }
   }
-  // Todo: refatorar if statements, colocando-os numa única função.
-  private validarQuantidadeDeCampos(entity_type:string, quantidadeDeCampos: number) {
+
+  public validarQuantidadeDeCampos(object_type:string, quantidadeDeCamposEncontrados: number): void {
     let qtdCampos = this.camposCliente.length
-    if (entity_type === 'clientes' && quantidadeDeCampos !== qtdCampos) {
-      throw new Error(
-        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
-      );
+    let msgErro = 'Objeto:"' + object_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCamposEncontrados + ' )';
+    if (object_type === 'clientes' && quantidadeDeCamposEncontrados !== qtdCampos) {
+      throw new Error(msgErro);
     }
     qtdCampos = this.camposPsicologo.length
-    if (entity_type === 'psicologos' && quantidadeDeCampos !== qtdCampos) {
-      throw new Error(
-        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
-      );
+    msgErro = 'Objeto:"' + object_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCamposEncontrados + ' )';
+    if (object_type === 'psicologos' && quantidadeDeCamposEncontrados !== qtdCampos) {
+      throw new Error(msgErro);
     }
     qtdCampos = this.camposSecretaria.length
-    if (entity_type === 'secretarias' && quantidadeDeCampos !== qtdCampos) {
-      throw new Error(
-        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
-      );
+    msgErro = 'Objeto:"' + object_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCamposEncontrados + ' )';
+    if (object_type === 'secretarias' && quantidadeDeCamposEncontrados !== qtdCampos) {
+      throw new Error(msgErro);
     }
     qtdCampos = this.camposConsulta.length
-    if (entity_type === 'consultas' && quantidadeDeCampos !== qtdCampos) {
-      throw new Error(
-        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
-      );
+    msgErro = 'Objeto:"' + object_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCamposEncontrados + ' )';
+    if (object_type === 'consultas' && quantidadeDeCamposEncontrados !== qtdCampos) {
+      throw new Error(msgErro);
     }
     qtdCampos = this.camposProntuario.length
-    if (entity_type === 'prontuarios' && quantidadeDeCampos !== qtdCampos) {
-      throw new Error(
-        'Entidade:"' + entity_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCampos + ' )'
-      );
+    msgErro = 'Objeto:"' + object_type + '" deve ter ( ' + qtdCampos + ' ) campos ao invés de ( ' + quantidadeDeCamposEncontrados + ' )';
+    if (object_type === 'prontuarios' && quantidadeDeCamposEncontrados !== qtdCampos) {
+      throw new Error(msgErro);
     }
   }
 
   /**
    * Funções delimitadas pela interface.
    */
-  public adicionarObjeto(data: any, entity_type: string): any {
+  public adicionarObjeto(data: any, object_type: string): any {
     try {
-      this.validarTipoDeEntidade(entity_type)
-      this.validarCamposDeEntidade(entity_type, data)
-      return this.repo.addObject(data, entity_type)
+      this.validarCategoriaDeObjeto(object_type)
+      this.validarCamposDeObjeto(object_type, data)
+      return this.repo.addObject(data, object_type)
     } catch (error) {
       return this.tratarErro(error)
     }
@@ -142,7 +140,7 @@ export class CRUDImpl implements CRUD {
 
   public retornarEntidadeUsuario(cpf: string, entity_type: string) {
     try {
-      this.validarTipoDeEntidade(entity_type)
+      this.validarCategoriaDeObjeto(entity_type)
       return this.repo.getUserEntity(cpf, entity_type)
     } catch (error) {
       return this.tratarErro(error)
@@ -151,7 +149,7 @@ export class CRUDImpl implements CRUD {
 
   public retornarTodosObjetos(entity_type: string) {
     try {
-      this.validarTipoDeEntidade(entity_type)
+      this.validarCategoriaDeObjeto(entity_type)
       return this.repo.getAllObjects(entity_type)
     } catch (error) {
       return this.tratarErro(error)
@@ -160,8 +158,8 @@ export class CRUDImpl implements CRUD {
 
   public atualizarObjeto(id: string, data: any, entity_type: string) {
     try {
-      this.validarTipoDeEntidade(entity_type)
-      this.validarCamposDeEntidade(entity_type, data)
+      this.validarCategoriaDeObjeto(entity_type)
+      this.validarCamposDeObjeto(entity_type, data)
       return this.repo.updateObject(id, data, entity_type)
     } catch (error) {
       return this.tratarErro(error)
@@ -170,7 +168,7 @@ export class CRUDImpl implements CRUD {
 
   public deletarObjeto(id: string, entity_type: string) {
     try {
-      this.validarTipoDeEntidade(entity_type)
+      this.validarCategoriaDeObjeto(entity_type)
       return this.repo.deleteObject(id, entity_type)
     } catch (error) {
       return this.tratarErro(error)

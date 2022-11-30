@@ -12,6 +12,7 @@ jobs:
         uses: actions/checkout@master
       
       - name: Install frontend dependencies
+        working-directory: ./
         run: yarn install
         
       - name: Install backend dependencies

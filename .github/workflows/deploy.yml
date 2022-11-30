@@ -13,7 +13,10 @@ jobs:
       
       - name: Install frontend dependencies
         working-directory: ./
-        run: yarn install
+        run: 
+          yarn install
+          npm install
+          npm install --save-dev jest @types/jest @babel/preset-typescript
         
       - name: Install backend dependencies
         working-directory: ./backend

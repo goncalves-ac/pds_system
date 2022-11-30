@@ -17,8 +17,12 @@ jobs:
           registry-url: https://registry.npmjs.org/
           
       - name: Install dependencies
-        run: npm install 
         working-directory: ./backend
+        run: npm install
+      
+      - name: Install babel
+        working-directory: ./backend
+        run: npm install --save-dev jest @types/jest @babel/preset-typescript 
       
       - name: Test
         run: npm test

@@ -11,12 +11,17 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@master
       
-      - name: Install frontend dependencies
+      - name: Install frontend dependencies1
         working-directory: ./
-        run: 
-          yarn install
-          npm install
-          npm install --save-dev jest @types/jest @babel/preset-typescript
+        run: yarn install
+      
+      - name: Install frontend dependencies2
+        working-directory: ./
+        run: npm install
+        
+      - name: Install frontend dependencies3
+        working-directory: ./
+        run: npm install --save-dev jest @types/jest @babel/preset-typescript
         
       - name: Install backend dependencies
         working-directory: ./backend

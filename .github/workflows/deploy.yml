@@ -6,23 +6,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@master
       
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14.20.1'
-          registry-url: https://registry.npmjs.org/
-          
       - name: Install dependencies
         working-directory: ./backend
         run: npm install
-      
-      - name: Install babel
-        working-directory: ./backend
-        run: npm install --save-dev jest @types/jest @babel/preset-typescript 
       
       - name: Test
         run: npm test

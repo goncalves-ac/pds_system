@@ -119,7 +119,7 @@ const Agenda: React.FC = () => {
             <Menu />
 
             <Box sx={{ display: 'flex', padding: '15rem 5rem 0 10rem', width: '100%', height: '100%', flexDirection: 'column' }}>
-                <Button onClick={handleClickOpen} style={{width: 200, color: 'white', backgroundColor: '#8778BB', borderRadius: 25}}>
+                <Button data-cy={'button-add-consulta'} onClick={handleClickOpen} style={{width: 200, color: 'white', backgroundColor: '#8778BB', borderRadius: 25}}>
                     Adicionar consulta
                 </Button>
                 <Dialog open={open} onClose={handleClose}>
@@ -131,7 +131,7 @@ const Agenda: React.FC = () => {
                                 borderColor={undefined}
                                 value={nomeCliente}
                                 setValue={setNomeCliente}
-                                placeholder=''
+                                placeholder='nome paciente'
                                 width='100%'
                             />
                         </Box>
@@ -142,7 +142,7 @@ const Agenda: React.FC = () => {
                                 borderColor={undefined}
                                 value={nomePsicologo}
                                 setValue={setNomePsicologo}
-                                placeholder=''
+                                placeholder='nome psicologo'
                                 width='100%'
                             />
                         </Box>
@@ -152,7 +152,7 @@ const Agenda: React.FC = () => {
                                 borderColor={undefined}
                                 value={dia}
                                 setValue={setDia}
-                                placeholder=''
+                                placeholder='dia'
                                 width='100%'
                             />
                         </Box>
@@ -162,7 +162,7 @@ const Agenda: React.FC = () => {
                                 borderColor={undefined}
                                 value={mes}
                                 setValue={setMes}
-                                placeholder=''
+                                placeholder='mes'
                                 width='100%'
                             />
                         </Box>
@@ -172,7 +172,7 @@ const Agenda: React.FC = () => {
                                 borderColor={undefined}
                                 value={ano}
                                 setValue={setAno}
-                                placeholder=''
+                                placeholder='ano'
                                 width='100%'
                             />
                         </Box>
@@ -182,7 +182,7 @@ const Agenda: React.FC = () => {
                                 borderColor={undefined}
                                 value={hora}
                                 setValue={setHora}
-                                placeholder=''
+                                placeholder='hora'
                                 width='100%'
                             />
                         </Box>

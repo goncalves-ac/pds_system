@@ -18,6 +18,7 @@ const Login: React.FC = () => {
 
     const onLogin = async () => {
         navigate('/home')
+        /*
         setValidate(true)
 
         if (email && password) {
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
                 .then((token) => setToken(token as string))
                 .catch(e => console.log('error on login: ', e))
                 .finally(() => setLoading(false))
-        }
+        } */
     }
 
     console.log(Background)

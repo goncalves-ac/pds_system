@@ -25,12 +25,12 @@ const Menu: React.FC = () => {
             onMouseOver={handleMouseOver} 
             onMouseOut={handleMouseOut}
         >
-            <MenuItem icon={Inicio} name={'Início'} isHovering={isHovering} route={'home'}/>
-            <MenuItem icon={Cadastro} name={'Cadastro'} isHovering={isHovering} route={'cadastro'}/>
-            <MenuItem icon={Cliente} name={'Cliente'} isHovering={isHovering} route={'cliente'}/>
-            <MenuItem icon={Psicologo} name={'Psicólogos'} isHovering={isHovering} route={'psicologo'}/>
-            <MenuItem icon={Secretaria} name={'Secretária'} isHovering={isHovering} route={'secretaria'}/>
-            <MenuItem icon={Agenda} name={'Agenda'} isHovering={isHovering} route={'agenda'}/>
+            <MenuItem datacy ={'home'} icon={Inicio} name={'Início'} isHovering={isHovering} route={'home'}/>
+            <MenuItem datacy ={'cadastro'} icon={Cadastro} name={'Cadastro'} isHovering={isHovering} route={'cadastro'}/>
+            <MenuItem datacy ={'cliente'} icon={Cliente} name={'Cliente'} isHovering={isHovering} route={'cliente'}/>
+            <MenuItem datacy ={'psicologo'} icon={Psicologo} name={'Psicólogos'} isHovering={isHovering} route={'psicologo'}/>
+            <MenuItem datacy ={'secretaria'} icon={Secretaria} name={'Secretária'} isHovering={isHovering} route={'secretaria'}/>
+            <MenuItem datacy ={'agenda'} icon={Agenda} name={'Agenda'} isHovering={isHovering} route={'agenda'}/>
         </div>
     )
 }

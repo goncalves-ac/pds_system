@@ -1,3 +1,4 @@
+import { Cyclone } from '@mui/icons-material'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container } from '../../layout'
@@ -7,14 +8,16 @@ interface MenuItemProps {
     name: string
     isHovering: boolean
     route: string
+    datacy: string
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({icon, name, isHovering, route}) => {
+const MenuItem: React.FC<MenuItemProps> = ({icon, name, isHovering, route, datacy}) => {
 
     const navigate = useNavigate()
     
     return (
         <div 
+            data-cy ={datacy}
             onClick={() => navigate(`/${route}`)}
             style={{display: 'flex', alignItems:'center', marginBottom: '24px', cursor: 'pointer'}}>
 
